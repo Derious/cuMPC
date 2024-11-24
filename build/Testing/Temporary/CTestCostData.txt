@@ -1,0 +1,7 @@
+test_matrix 0 0
+test_communication 0 0
+test_invert 0 0
+---
+test_matrix
+test_communication
+test_invert
