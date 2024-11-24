@@ -467,6 +467,8 @@ uint128_t dcf_eval(AES_KEY *key, unsigned char* k, uint128_t x){
         int changed = (xbit_last * (1 - xbit)) | ((1 - xbit_last) * xbit);
         res = res ^ uint128_t(0, changed*t[i-1]);
 	}
+	xbit = 1-x.get_bit(0);
+    res = res ^ uint128_t(0, t[maxlayer]*xbit);
 	return res;
 }
 

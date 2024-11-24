@@ -17,7 +17,8 @@ extern "C" void cudaMatrixLinear(const int64_t a, const int64_t* A, const int64_
 extern "C" void cudaMPC_MM(MatrixRowMajor &Public_C, MatrixRowMajor &Public_A, MatrixRowMajor &Public_B, MM_Keys &keys, int party);
 extern "C" void cudaWarmup(int size, int party);
 extern "C" int test_dcf();
-extern "C" void cudafsseval(bool *res, DCF_Keys key, uint128_t *value, int N, int maxlayer, int party);
+extern "C" void cudafsseval(bool *res, DCF_Keys key, uint64_t *value, int N, int maxlayer, int party);
+extern "C" void cudafsskeygen(DCF_Keys k0, DCF_Keys k1, uint64_t* alpha, int N, int n, int maxlayer);
 
 template<int nP>
 class cuda_mpc_core {
@@ -85,7 +86,7 @@ class cuda_mpc_core {
     return ;
 }
 
-    void cuda_fss_eval(bool *res, DCF_Keys key, uint128_t *value, int N, int maxlayer, int party){
+    void cuda_fss_eval(bool *res, DCF_Keys key, uint64_t *value, int N, int maxlayer, int party){
         cudafsseval(res, key, value, N, maxlayer, party);
         GMW_B->open_vec(res,res,N);
     }
