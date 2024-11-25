@@ -44,7 +44,7 @@ int main() {
     printf("===============================================\n");
 
     cudaWarmup(512, 0);
-    int N = 10000;
+    int N = 30520;
     int maxlayer = 64;
     DCF_Keys dcf_k0, dcf_k1;
     dcf_k0 = (DCF_Keys)malloc(N * (1 + 16 + 1 + 18 * maxlayer + 16));
@@ -72,9 +72,18 @@ int main() {
 
     cudafsseval(res2, dcf_k1, alpha2, N, maxlayer, 1);
 
-    // for(int i = 0; i < N; i++){
-    //     printf("res1[%d]^res2[%d] = %d\n", i, i, res1[i]^res2[i]);
-    // }
+    start = std::chrono::high_resolution_clock::now();
+    uint32_t final_res = 0;
+    for(int i = 0; i < N; i++){
+        final_res += (uint32_t)(res1[i]^res2[i]);
+        if( res1[i]^res2[i] ^ (i>=64)){
+            printf("Error at i = %d, res1[i]^res2[i] = %d, i>=64 = %d\n", i, res1[i]^res2[i], i>=64);
+        }
+    }
+    printf("final_res = %d\n", final_res);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    printf("Final res reduction Time taken: %f milliseconds\n", elapsed.count() * 1000);
 
     free(dcf_k0);
     free(dcf_k1);

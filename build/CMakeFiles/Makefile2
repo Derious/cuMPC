@@ -105,6 +105,7 @@ test/test_CORE/clean: test/test_CORE/CMakeFiles/test_test_fss.dir/clean
 test/test_mpc/all: test/test_mpc/CMakeFiles/test_test_matrix.dir/all
 test/test_mpc/all: test/test_mpc/CMakeFiles/test_test_memory_transfer.dir/all
 test/test_mpc/all: test/test_mpc/CMakeFiles/test_test_uint128.dir/all
+test/test_mpc/all: test/test_mpc/CMakeFiles/test_test_msb.dir/all
 .PHONY : test/test_mpc/all
 
 # Recursive "preinstall" directory target.
@@ -115,6 +116,7 @@ test/test_mpc/preinstall:
 test/test_mpc/clean: test/test_mpc/CMakeFiles/test_test_matrix.dir/clean
 test/test_mpc/clean: test/test_mpc/CMakeFiles/test_test_memory_transfer.dir/clean
 test/test_mpc/clean: test/test_mpc/CMakeFiles/test_test_uint128.dir/clean
+test/test_mpc/clean: test/test_mpc/CMakeFiles/test_test_msb.dir/clean
 .PHONY : test/test_mpc/clean
 
 #=============================================================================
@@ -176,7 +178,7 @@ test/test_mpc/CMakeFiles/test_test_memory_transfer.dir/clean:
 test/test_mpc/CMakeFiles/test_test_uint128.dir/all:
 	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_uint128.dir/build.make test/test_mpc/CMakeFiles/test_test_uint128.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_uint128.dir/build.make test/test_mpc/CMakeFiles/test_test_uint128.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles --progress-num=25,26,27,28 "Built target test_test_uint128"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles --progress-num=29,30,31,32 "Built target test_test_uint128"
 .PHONY : test/test_mpc/CMakeFiles/test_test_uint128.dir/all
 
 # Build rule for subdir invocation for target.
@@ -194,6 +196,32 @@ test_test_uint128: test/test_mpc/CMakeFiles/test_test_uint128.dir/rule
 test/test_mpc/CMakeFiles/test_test_uint128.dir/clean:
 	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_uint128.dir/build.make test/test_mpc/CMakeFiles/test_test_uint128.dir/clean
 .PHONY : test/test_mpc/CMakeFiles/test_test_uint128.dir/clean
+
+#=============================================================================
+# Target rules for target test/test_mpc/CMakeFiles/test_test_msb.dir
+
+# All Build rule for target.
+test/test_mpc/CMakeFiles/test_test_msb.dir/all:
+	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_msb.dir/build.make test/test_mpc/CMakeFiles/test_test_msb.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_msb.dir/build.make test/test_mpc/CMakeFiles/test_test_msb.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles --progress-num=21,22,23,24 "Built target test_test_msb"
+.PHONY : test/test_mpc/CMakeFiles/test_test_msb.dir/all
+
+# Build rule for subdir invocation for target.
+test/test_mpc/CMakeFiles/test_test_msb.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/test_mpc/CMakeFiles/test_test_msb.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles 0
+.PHONY : test/test_mpc/CMakeFiles/test_test_msb.dir/rule
+
+# Convenience name for target.
+test_test_msb: test/test_mpc/CMakeFiles/test_test_msb.dir/rule
+.PHONY : test_test_msb
+
+# clean rule for target.
+test/test_mpc/CMakeFiles/test_test_msb.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_msb.dir/build.make test/test_mpc/CMakeFiles/test_test_msb.dir/clean
+.PHONY : test/test_mpc/CMakeFiles/test_test_msb.dir/clean
 
 #=============================================================================
 # Target rules for target test/test_CORE/CMakeFiles/test_test_communication.dir
@@ -254,7 +282,7 @@ test/test_CORE/CMakeFiles/test_test_invert.dir/clean:
 test/test_CORE/CMakeFiles/test_test_sort.dir/all:
 	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_sort.dir/build.make test/test_CORE/CMakeFiles/test_test_sort.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_sort.dir/build.make test/test_CORE/CMakeFiles/test_test_sort.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles --progress-num=21,22,23,24 "Built target test_test_sort"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles --progress-num=25,26,27,28 "Built target test_test_sort"
 .PHONY : test/test_CORE/CMakeFiles/test_test_sort.dir/all
 
 # Build rule for subdir invocation for target.

@@ -5,6 +5,7 @@
 #include "../mpc_keys/keys_type.h"
 #include "aes_prg_device.h"
 
+
 __device__ void PRG_cuda(uint32_t *key, uint128_t input, uint128_t& output1, uint128_t& output2, int& bit1, int& bit2){
 	input = input.set_lsb_zero();
 
@@ -200,7 +201,7 @@ __global__ void fss_genaeskey_kernel(uint32_t key[4 * (14 + 1)]) {
 
 __global__ void fss_gen_kernel(uint32_t key[4 * (14 + 1)], uint64_t* alpha, int n,DCF_Keys k0, DCF_Keys k1, int N, int maxlayer) {
 	int tid = blockIdx.x * blockDim.x + threadIdx.x;
-	tid = tid % N;
+	if(tid >= N) return;
 	uint32_t expanded_key[4 * (14 + 1)];
 	memcpy(expanded_key, key, 4 * (14 + 1) * sizeof(uint32_t));
 	AES_Generator_device prg;
@@ -214,13 +215,15 @@ __global__ void fss_gen_kernel(uint32_t key[4 * (14 + 1)], uint64_t* alpha, int 
 
 __global__ void fss_eval_kernel(bool* res, uint32_t key[4 * (14 + 1)], uint64_t* alpha, int n, DCF_Keys k, int N, int maxlayer) {
 	int tid = blockIdx.x * blockDim.x + threadIdx.x;
-	tid = tid % N;
+	if(tid >= N) return;
 	uint32_t expanded_key[4 * (14 + 1)];
 	memcpy(expanded_key, key, 4 * (14 + 1) * sizeof(uint32_t));
 	unsigned char* k_local = (unsigned char*) (k + tid * (1 + 16 + 1 + 18 * maxlayer + 16));
 	uint128_t alpha_tid(0, alpha[tid]);
 	res[tid] = dcf_eval_device(expanded_key, k_local, alpha_tid).get_lsb();
 }	
+
+
 
 __global__ void aes_test_kernel(int N, DCF_Keys k0, DCF_Keys k1) {
     // 测试密钥 (16字节 = 128位)
@@ -255,6 +258,153 @@ __global__ void aes_test_kernel(int N, DCF_Keys k0, DCF_Keys k1) {
     printf("random < random2 = %s\n", (random < random2) == res.get_lsb()? "success" : "failed");
 }
 
+__global__ void fss_msb_keygen_kernel(uint32_t key[4 * (14 + 1)], DCF_Keys k0, DCF_Keys k1, int64_t* random0, int64_t* random1, bool* r_msb0, bool* r_msb1, int N, int maxlayer){
+	int tid = blockIdx.x * blockDim.x + threadIdx.x;
+	if(tid >= N) return;
+	uint32_t expanded_key[4 * (14 + 1)];
+	memcpy(expanded_key, key, 4 * (14 + 1) * sizeof(uint32_t));
+	AES_Generator_device prg;
+	unsigned char* k0_local;
+	unsigned char* k1_local;
+	k0_local = (unsigned char*) (k0 + tid * (1 + 16 + 1 + 18 * maxlayer + 16));
+	k1_local = (unsigned char*) (k1 + tid * (1 + 16 + 1 + 18 * maxlayer + 16));
+	uint64_t random0_local = prg.random().get_low();
+	uint64_t random1_local = prg.random().get_low();
+	uint64_t random_local = random0_local + random1_local;
+	// printf("random_local = %lx\n", random_local);
+	uint64_t r_prime = ((uint64_t)1 << 63);
+	// printf("r_prime = %lx\n", r_prime);
+	r_prime = r_prime - (random_local << 1 >> 1);
+	// printf("r_prime = %lx\n", r_prime);
+	uint128_t random_tid(0, r_prime);
+	fss_gen_device(&prg, expanded_key, random_tid, 64, k0_local, k1_local);
+	r_msb0[tid] = prg.random().get_lsb();
+	r_msb1[tid] = (random_local >> 63) != r_msb0[tid];
+	random0[tid] = (int64_t)random0_local;
+	random1[tid] = (int64_t)random1_local;
+}
+
+__global__ void fss_msb_eval_kernel(bool* res, uint32_t key[4 * (14 + 1)], DCF_Keys k, int64_t* value, bool* r_msb, int N, int maxlayer, int select){
+	int tid = blockIdx.x * blockDim.x + threadIdx.x;
+	if(tid >= N) return;
+	uint32_t expanded_key[4 * (14 + 1)];
+	memcpy(expanded_key, key, 4 * (14 + 1) * sizeof(uint32_t));
+	unsigned char* k_local = (unsigned char*) (k + tid * (1 + 16 + 1 + 18 * maxlayer + 16));
+	// printf("value[tid] = %lx\n", value[tid]);
+	uint64_t value_tid = ((uint64_t)value[tid] << 1) >> 1;
+	// printf("value_tid = %lx\n", value_tid);
+	uint128_t value_tid_128(0, value_tid);
+	bool res_local = dcf_eval_device(expanded_key, k_local, value_tid_128).get_lsb();
+	// printf("res_local = %d\n", res_local);
+	res_local = res_local != r_msb[tid];
+	// printf("res_local = %d\n", res_local);
+	bool value_msb = ((uint64_t)value[tid]) >> 63;
+	// printf("value_msb = %d\n", value_msb);
+	res_local = res_local != select*value_msb;
+	// printf("res[tid] = %d\n", res_local);
+	res[tid] = res_local;
+}
+
+extern "C" void cudamsbkeygen(DCF_Keys k0, DCF_Keys k1, int64_t* random0, int64_t* random1, bool* r_msb0, bool* r_msb1, int N, int maxlayer){
+
+	DCF_Keys k0_device;
+	cudaMalloc(&k0_device, N * (1 + 16 + 1 + 18 * maxlayer + 16));
+
+	DCF_Keys k1_device;
+	cudaMalloc(&k1_device, N * (1 + 16 + 1 + 18 * maxlayer + 16));
+
+	int64_t* random0_device;
+	cudaMalloc(&random0_device, N * sizeof(int64_t));
+	cudaMemcpy(random0_device, random0, N * sizeof(int64_t), cudaMemcpyHostToDevice);
+
+	int64_t* random1_device;
+	cudaMalloc(&random1_device, N * sizeof(int64_t));
+	cudaMemcpy(random1_device, random1, N * sizeof(int64_t), cudaMemcpyHostToDevice);
+
+	bool* r_msb0_device;
+	cudaMalloc(&r_msb0_device, N * sizeof(bool));
+	cudaMemcpy(r_msb0_device, r_msb0, N * sizeof(bool), cudaMemcpyHostToDevice);
+
+	bool* r_msb1_device;
+	cudaMalloc(&r_msb1_device, N * sizeof(bool));
+	cudaMemcpy(r_msb1_device, r_msb1, N * sizeof(bool), cudaMemcpyHostToDevice);
+
+	uint32_t* aes_key;
+	cudaMalloc(&aes_key, 4 * (14 + 1) * sizeof(uint32_t));
+	fss_genaeskey_kernel<<<1, 1>>>(aes_key);
+
+	int threads = N > 256 ? 256 : N;
+	int blocks = (N + threads - 1) / threads;
+	fss_msb_keygen_kernel<<<blocks, threads>>>(aes_key, k0_device, k1_device, random0_device, random1_device, r_msb0_device, r_msb1_device, N, maxlayer);
+
+	cudaMemcpy(k0, k0_device, N * (1 + 16 + 1 + 18 * maxlayer + 16), cudaMemcpyDeviceToHost);
+	cudaMemcpy(k1, k1_device, N * (1 + 16 + 1 + 18 * maxlayer + 16), cudaMemcpyDeviceToHost);
+	cudaMemcpy(random0, random0_device, N * sizeof(int64_t), cudaMemcpyDeviceToHost);
+	cudaMemcpy(random1, random1_device, N * sizeof(int64_t), cudaMemcpyDeviceToHost);
+	cudaMemcpy(r_msb0, r_msb0_device, N * sizeof(bool), cudaMemcpyDeviceToHost);
+	cudaMemcpy(r_msb1, r_msb1_device, N * sizeof(bool), cudaMemcpyDeviceToHost);
+
+    cudaDeviceSynchronize();
+	cudaFree(k0_device);
+	cudaFree(k1_device);
+	cudaFree(random0_device);
+	cudaFree(random1_device);
+	cudaFree(r_msb0_device);
+	cudaFree(r_msb1_device);
+	cudaFree(aes_key);
+}
+
+extern "C" void cudamsbeval(bool* res, DCF_Keys k, int64_t* value, bool* r_msb, int N, int maxlayer, int party){
+
+	//move MSB_keys to device
+	DCF_Keys k_device;
+	cudaMalloc(&k_device, N * (1 + 16 + 1 + 18 * maxlayer + 16));
+	cudaMemcpy(k_device, k, N * (1 + 16 + 1 + 18 * maxlayer + 16), cudaMemcpyHostToDevice);
+
+	int64_t* value_device;
+	cudaMalloc(&value_device, N * sizeof(int64_t));
+	cudaMemcpy(value_device, value, N * sizeof(int64_t), cudaMemcpyHostToDevice);
+
+	bool* r_msb_device;
+	cudaMalloc(&r_msb_device, N * sizeof(bool));
+	cudaMemcpy(r_msb_device, r_msb, N * sizeof(bool), cudaMemcpyHostToDevice);
+
+	bool* res_device;
+	cudaMalloc(&res_device, N * sizeof(bool));
+
+	uint32_t* aes_key;
+	cudaMalloc(&aes_key, 4 * (14 + 1) * sizeof(uint32_t));
+	fss_genaeskey_kernel<<<1, 1>>>(aes_key);
+
+	int threads = N > 512 ? 512 : N;
+	int blocks = (N + threads - 1) / threads;
+	int select = party == 1 ? 1 : 0;
+
+	// cudaEvent_t start1, stop1;
+    // cudaEventCreate(&start1);
+    // cudaEventCreate(&stop1);
+
+	// cudaEventRecord(start1);
+	fss_msb_eval_kernel<<<blocks, threads>>>(res_device, aes_key, k_device, value_device, r_msb_device, N, maxlayer, select);
+	// cudaEventRecord(stop1);
+
+	// cudaEventSynchronize(stop1);
+	// float time1 = 0;
+    // cudaEventElapsedTime(&time1, start1, stop1);
+    // printf("msb eval Kernel Time taken: %.3f ms\n", time1);
+
+	cudaMemcpy(res, res_device, N * sizeof(bool), cudaMemcpyDeviceToHost);
+
+
+	// 等待GPU完成
+    cudaDeviceSynchronize();
+	cudaFree(k_device);
+	cudaFree(value_device);
+	cudaFree(r_msb_device);
+	cudaFree(res_device);
+	cudaFree(aes_key);
+}
+
 extern "C" void cudafsskeygen(DCF_Keys k0, DCF_Keys k1, uint64_t* alpha, int N, int n,int maxlayer){
 
 	DCF_Keys k0_device;
@@ -285,11 +435,6 @@ extern "C" void cudafsskeygen(DCF_Keys k0, DCF_Keys k1, uint64_t* alpha, int N, 
 }
 
 extern "C" void cudafsseval(bool *res, DCF_Keys key, uint64_t *value,int N, int maxlayer, int party){
-
-	cudaSetDevice(party);
-	int current_device;
-	cudaGetDevice(&current_device);
-	printf("Current device: %d\n", current_device);
 
 	DCF_Keys key_device;
 	cudaMalloc(&key_device, N * (1 + 16 + 1 + 18 * maxlayer + 16));

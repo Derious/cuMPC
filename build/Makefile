@@ -211,6 +211,19 @@ test_test_uint128/fast:
 .PHONY : test_test_uint128/fast
 
 #=============================================================================
+# Target rules for targets named test_test_msb
+
+# Build rule for target.
+test_test_msb: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_test_msb
+.PHONY : test_test_msb
+
+# fast build rule for target.
+test_test_msb/fast:
+	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_msb.dir/build.make test/test_mpc/CMakeFiles/test_test_msb.dir/build
+.PHONY : test_test_msb/fast
+
+#=============================================================================
 # Target rules for targets named test_test_communication
 
 # Build rule for target.
@@ -280,6 +293,7 @@ help:
 	@echo "... test_test_invert"
 	@echo "... test_test_matrix"
 	@echo "... test_test_memory_transfer"
+	@echo "... test_test_msb"
 	@echo "... test_test_sort"
 	@echo "... test_test_uint128"
 .PHONY : help
