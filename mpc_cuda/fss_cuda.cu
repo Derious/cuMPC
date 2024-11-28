@@ -187,6 +187,171 @@ __device__ uint128_t dcf_eval_device(uint32_t *key, DCF_Keys k, uint128_t x){
 	return res;
 }
 
+
+__device__ void dcf_pack_gen_device(AES_Generator_device* prg, uint32_t *key, uint128_t alpha, int n, int maxlayer, DCF_Keys k0, DCF_Keys k1, uint128_t* g_prefix_ones_table){
+
+	// int maxlayer = n;
+    const int MAX_LAYER = 64;
+
+	uint128_t s[MAX_LAYER + 1][2];
+	int t[MAX_LAYER + 1 ][2];
+	uint128_t sCW[MAX_LAYER];
+	int tCW[MAX_LAYER][2];
+
+	s[0][0] = prg->random(); 
+	s[0][1] = prg->random();
+	t[0][0] = s[0][0].get_lsb();
+	t[0][1] = t[0][0] ^ 1;
+	s[0][0] = s[0][0].set_lsb_zero();
+	s[0][1] = s[0][1].set_lsb_zero();
+
+	int i;
+	uint128_t s0[2], s1[2]; // 0=L,1=R
+	#define LEFT 0
+	#define RIGHT 1
+	int t0[2], t1[2];
+	for(i = 1; i<= maxlayer; i++){
+		PRG_cuda(key, s[i-1][0], s0[LEFT], s0[RIGHT], t0[LEFT], t0[RIGHT]);
+		PRG_cuda(key, s[i-1][1], s1[LEFT], s1[RIGHT], t1[LEFT], t1[RIGHT]);
+
+		int keep, lose;
+        // int alphabit = getbit(alpha, n, i);
+        int alphabit = alpha.get_bit(n-i);
+		if(alphabit == 0){
+			keep = LEFT;
+			lose = RIGHT;
+		}else{
+			keep = RIGHT;
+			lose = LEFT;
+		}
+
+		sCW[i-1] = s0[lose] ^ s1[lose];
+
+		tCW[i-1][LEFT] = t0[LEFT] ^ t1[LEFT] ^ alphabit ^ 1;
+		tCW[i-1][RIGHT] = t0[RIGHT] ^ t1[RIGHT] ^ alphabit;
+
+		if(t[i-1][0] == 1){
+			s[i][0] = s0[keep] ^ sCW[i-1];
+			t[i][0] = t0[keep] ^ tCW[i-1][keep];
+		}else{
+			s[i][0] = s0[keep];
+			t[i][0] = t0[keep];
+		}
+
+		if(t[i-1][1] == 1){
+			s[i][1] = s1[keep] ^ sCW[i-1];
+			t[i][1] = t1[keep] ^ tCW[i-1][keep];
+		}else{
+			s[i][1] = s1[keep];
+			t[i][1] = t1[keep];
+		}
+	}
+
+    uint128_t finalblock;
+	uint32_t alpha_m = alpha.get_low() % ((uint64_t)1 << (n-maxlayer));
+    finalblock = g_prefix_ones_table[alpha_m];
+	// printf("alpha = %lx\n", alpha.get_low());
+	// printf("alpha_m = %x\n", alpha_m);
+	// finalblock.print_uint128("finalblock = ", finalblock);
+	finalblock = finalblock ^ s[maxlayer][0];
+	finalblock = finalblock ^ s[maxlayer][1];
+    
+
+	// unsigned char *buff0;
+	// unsigned char *buff1;
+	// buff0 = (unsigned char*) malloc(1 + 16 + 1 + 18 * maxlayer + 16);
+	// buff1 = (unsigned char*) malloc(1 + 16 + 1 + 18 * maxlayer + 16);
+
+	// if(buff0 == NULL || buff1 == NULL){
+	// 	printf("Memory allocation failed\n");
+	// 	return;
+	// }
+
+	k0[0] = n;
+	memcpy(&k0[1], &s[0][0], 16);
+	k0[17] = t[0][0];
+	for(i = 1; i <= maxlayer; i++){
+		memcpy(&k0[18 * i], &sCW[i-1], 16);
+		k0[18 * i + 16] = tCW[i-1][0];
+		k0[18 * i + 17] = tCW[i-1][1]; 
+	}
+	memcpy(&k0[18 * maxlayer + 18], &finalblock, 16); 
+
+	k1[0] = n;
+	memcpy(&k1[18], &k0[18], 18 * (maxlayer));
+	memcpy(&k1[1], &s[0][1], 16);
+	k1[17] = t[0][1];
+	memcpy(&k1[18 * maxlayer + 18], &finalblock, 16);
+
+	// memcpy(k0, buff0, 1 + 16 + 1 + 18 * maxlayer + 16);
+	// memcpy(k1, buff1, 1 + 16 + 1 + 18 * maxlayer + 16);
+	// free(buff0);
+	// free(buff1);
+
+}
+
+__device__ uint128_t dcf_pack_eval_device(uint32_t *key, DCF_Keys k, uint128_t x, int maxlayer){
+
+	int n = k[0];
+    const int MAX_LAYER = 64;
+
+	uint128_t s[MAX_LAYER + 1];
+	int t[MAX_LAYER + 1];
+	uint128_t sCW[MAX_LAYER];
+	int tCW[MAX_LAYER][2];
+	uint128_t finalblock;
+
+	memcpy(&s[0], &k[1], 16);
+	t[0] = k[17];
+
+	int i;
+	for(i = 1; i <= maxlayer; i++){
+		memcpy(&sCW[i-1], &k[18 * i], 16);
+		tCW[i-1][0] = k[18 * i + 16];
+		tCW[i-1][1] = k[18 * i + 17];
+	}
+
+	memcpy(&finalblock, &k[18 * (maxlayer + 1)], 16);
+
+	uint128_t sL, sR;
+	int tL, tR;
+	uint64_t res = 0;
+	for(i = 1; i <= maxlayer; i++){
+		PRG_cuda(key, s[i - 1], sL, sR, tL, tR); 
+
+		sL = sL ^ sCW[i-1].select(t[i-1]);
+		sR = sR ^ sCW[i-1].select(t[i-1]);
+		tL = tL ^ (tCW[i-1][0]*t[i-1]);
+		tR = tR ^ (tCW[i-1][1]*t[i-1]);	
+
+		int xbit = x.get_bit(n-i);
+		s[i] = sR.select(xbit) ^ sL.select((1-xbit));
+		t[i] = tR * xbit + tL * (1-xbit);
+		res = res ^ (tR * (1-xbit));
+	}
+	// printf("res = %lx\n", res);
+	uint128_t eval_res;
+	// printf("x = %lx\n", x.get_low());
+	// uint32_t x_m = ((uint64_t)x.get_low() << (maxlayer)) >> (maxlayer);
+	uint32_t x_m = x.get_low() % ((uint64_t)1 << (n-maxlayer));
+	// printf("x_m = %lx\n", x_m);
+	// printf("t[maxlayer] = %d\n", t[maxlayer]);
+	eval_res = s[maxlayer];
+    eval_res = eval_res ^ finalblock.select(t[maxlayer]);
+	// eval_res.print_uint128("eval_res = ", eval_res);
+
+	uint32_t tmp = 127 - x_m;
+	// printf("tmp = %d\n", tmp);
+	eval_res >>= tmp;
+	// eval_res.print_uint128("eval_res = ", eval_res);
+	tmp = eval_res.get_lsb();
+	// printf("tmp = %d\n", tmp);
+	res = res ^ tmp;
+
+	return uint128_t(0, res);
+
+}
+
 __global__ void fss_genaeskey_kernel(uint32_t key[4 * (14 + 1)]) {
 	// 测试密钥 (16字节 = 128位)
     uint64_t userkey1 = 597349; uint64_t userkey2 = 121379; 
@@ -223,7 +388,33 @@ __global__ void fss_eval_kernel(bool* res, uint32_t key[4 * (14 + 1)], uint64_t*
 	res[tid] = dcf_eval_device(expanded_key, k_local, alpha_tid).get_lsb();
 }	
 
+__global__ void fss_pack_gen_kernel(uint32_t key[4 * (14 + 1)], uint64_t* alpha, int n, DCF_Keys k0, DCF_Keys k1, int N, int maxlayer, uint128_t* g_prefix_ones_table) {
 
+	int tid = blockIdx.x * blockDim.x + threadIdx.x;
+	if(tid >= N) return;
+	uint32_t expanded_key[4 * (14 + 1)];
+	memcpy(expanded_key, key, 4 * (14 + 1) * sizeof(uint32_t));
+	AES_Generator_device prg;
+	unsigned char* k0_local;
+	unsigned char* k1_local;
+	uint128_t alpha_tid(0, alpha[tid]);
+	k0_local = (unsigned char*) (k0 + tid * (1 + 16 + 1 + 18 * maxlayer + 16));
+	k1_local = (unsigned char*) (k1 + tid * (1 + 16 + 1 + 18 * maxlayer + 16));
+	dcf_pack_gen_device(&prg, expanded_key, alpha_tid, n, maxlayer, k0_local, k1_local, g_prefix_ones_table);
+
+}
+
+__global__ void fss_pack_eval_kernel(bool* res, uint32_t key[4 * (14 + 1)], uint64_t* alpha, DCF_Keys k, int N, int maxlayer) {
+
+	int tid = blockIdx.x * blockDim.x + threadIdx.x;
+	if(tid >= N) return;
+	uint32_t expanded_key[4 * (14 + 1)];
+	memcpy(expanded_key, key, 4 * (14 + 1) * sizeof(uint32_t));
+	unsigned char* k_local = (unsigned char*) (k + tid * (1 + 16 + 1 + 18 * maxlayer + 16));
+	uint128_t alpha_tid(0, alpha[tid]);
+	res[tid] = dcf_pack_eval_device(expanded_key, k_local, alpha_tid, maxlayer).get_lsb();
+
+}
 
 __global__ void aes_test_kernel(int N, DCF_Keys k0, DCF_Keys k1) {
     // 测试密钥 (16字节 = 128位)
@@ -303,6 +494,22 @@ __global__ void fss_msb_eval_kernel(bool* res, uint32_t key[4 * (14 + 1)], DCF_K
 	res_local = res_local != select*value_msb;
 	// printf("res[tid] = %d\n", res_local);
 	res[tid] = res_local;
+}
+
+// 初始化kernel
+__global__ void init_prefix_ones_table(uint128_t* g_prefix_ones_table) {
+    int idx = threadIdx.x;
+    if (idx >= 128) return;
+    
+    if (idx < 64) {
+        // 前64项：只设置高64位
+        uint64_t high = (~0ULL << (63 - idx));
+        g_prefix_ones_table[idx] = uint128_t(high, 0);
+    } else {
+        // 后64项：高64位全1，设置低64位
+        uint64_t low = (~0ULL << (127 - idx));
+        g_prefix_ones_table[idx] = uint128_t(0xFFFFFFFFFFFFFFFFULL, low);
+    }
 }
 
 extern "C" void cudamsbkeygen(DCF_Keys k0, DCF_Keys k1, int64_t* random0, int64_t* random1, bool* r_msb0, bool* r_msb1, int N, int maxlayer){
@@ -421,9 +628,14 @@ extern "C" void cudafsskeygen(DCF_Keys k0, DCF_Keys k1, uint64_t* alpha, int N, 
 	cudaMalloc(&aes_key, 4 * (14 + 1) * sizeof(uint32_t));
 	fss_genaeskey_kernel<<<1, 1>>>(aes_key);
 
+	uint128_t* g_prefix_ones_table;
+	cudaMalloc(&g_prefix_ones_table, 128 * sizeof(uint128_t));
+	init_prefix_ones_table<<<1, 128>>>(g_prefix_ones_table);
+	cudaDeviceSynchronize();
+
 	int threads = N > 256 ? 256 : N;
 	int blocks = (N + threads - 1) / threads;
-	fss_gen_kernel<<<blocks, threads>>>(aes_key, alpha_device, n, k0_device, k1_device, N, maxlayer);
+	fss_pack_gen_kernel<<<blocks, threads>>>(aes_key, alpha_device, n, k0_device, k1_device, N, maxlayer, g_prefix_ones_table);
 
 	cudaMemcpy(k0, k0_device, N * (1 + 16 + 1 + 18 * maxlayer + 16), cudaMemcpyDeviceToHost);
 	cudaMemcpy(k1, k1_device, N * (1 + 16 + 1 + 18 * maxlayer + 16), cudaMemcpyDeviceToHost);	
@@ -453,7 +665,7 @@ extern "C" void cudafsseval(bool *res, DCF_Keys key, uint64_t *value,int N, int 
 
 	int threads = N > 256 ? 256 : N;
 	int blocks = (N + threads - 1) / threads;	
-    fss_eval_kernel<<<blocks, threads>>>(res_device, aes_key, value_device, 64, key_device, N, maxlayer);   
+    fss_pack_eval_kernel<<<blocks, threads>>>(res_device, aes_key, value_device, key_device, N, maxlayer);   
 
 	cudaMemcpy(res, res_device, N * sizeof(bool), cudaMemcpyDeviceToHost);
 

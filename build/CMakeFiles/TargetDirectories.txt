@@ -20,6 +20,7 @@
 /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/test/test_CORE/CMakeFiles/test_test_invert.dir
 /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/test/test_CORE/CMakeFiles/test_test_sort.dir
 /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/test/test_CORE/CMakeFiles/test_test_fss.dir
+/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/test/test_CORE/CMakeFiles/test_test_lut.dir
 /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/test/test_CORE/CMakeFiles/test.dir
 /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/test/test_CORE/CMakeFiles/edit_cache.dir
 /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/test/test_CORE/CMakeFiles/rebuild_cache.dir

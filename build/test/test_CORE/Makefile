@@ -227,6 +227,20 @@ test_test_fss/fast:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/build
 .PHONY : test_test_fss/fast
 
+# Convenience name for target.
+test/test_CORE/CMakeFiles/test_test_lut.dir/rule:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/test_CORE/CMakeFiles/test_test_lut.dir/rule
+.PHONY : test/test_CORE/CMakeFiles/test_test_lut.dir/rule
+
+# Convenience name for target.
+test_test_lut: test/test_CORE/CMakeFiles/test_test_lut.dir/rule
+.PHONY : test_test_lut
+
+# fast build rule for target.
+test_test_lut/fast:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/build
+.PHONY : test_test_lut/fast
+
 __/__/mpc_cuda/fss_cuda.o: __/__/mpc_cuda/fss_cuda.cu.o
 .PHONY : __/__/mpc_cuda/fss_cuda.o
 
@@ -236,6 +250,7 @@ __/__/mpc_cuda/fss_cuda.cu.o:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_invert.dir/build.make test/test_CORE/CMakeFiles/test_test_invert.dir/__/__/mpc_cuda/fss_cuda.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_sort.dir/build.make test/test_CORE/CMakeFiles/test_test_sort.dir/__/__/mpc_cuda/fss_cuda.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/fss_cuda.cu.o
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/fss_cuda.cu.o
 .PHONY : __/__/mpc_cuda/fss_cuda.cu.o
 
 __/__/mpc_cuda/fss_cuda.i: __/__/mpc_cuda/fss_cuda.cu.i
@@ -247,6 +262,7 @@ __/__/mpc_cuda/fss_cuda.cu.i:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_invert.dir/build.make test/test_CORE/CMakeFiles/test_test_invert.dir/__/__/mpc_cuda/fss_cuda.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_sort.dir/build.make test/test_CORE/CMakeFiles/test_test_sort.dir/__/__/mpc_cuda/fss_cuda.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/fss_cuda.cu.i
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/fss_cuda.cu.i
 .PHONY : __/__/mpc_cuda/fss_cuda.cu.i
 
 __/__/mpc_cuda/fss_cuda.s: __/__/mpc_cuda/fss_cuda.cu.s
@@ -258,6 +274,7 @@ __/__/mpc_cuda/fss_cuda.cu.s:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_invert.dir/build.make test/test_CORE/CMakeFiles/test_test_invert.dir/__/__/mpc_cuda/fss_cuda.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_sort.dir/build.make test/test_CORE/CMakeFiles/test_test_sort.dir/__/__/mpc_cuda/fss_cuda.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/fss_cuda.cu.s
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/fss_cuda.cu.s
 .PHONY : __/__/mpc_cuda/fss_cuda.cu.s
 
 __/__/mpc_cuda/mpc_core.o: __/__/mpc_cuda/mpc_core.cu.o
@@ -269,6 +286,7 @@ __/__/mpc_cuda/mpc_core.cu.o:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_invert.dir/build.make test/test_CORE/CMakeFiles/test_test_invert.dir/__/__/mpc_cuda/mpc_core.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_sort.dir/build.make test/test_CORE/CMakeFiles/test_test_sort.dir/__/__/mpc_cuda/mpc_core.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/mpc_core.cu.o
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/mpc_core.cu.o
 .PHONY : __/__/mpc_cuda/mpc_core.cu.o
 
 __/__/mpc_cuda/mpc_core.i: __/__/mpc_cuda/mpc_core.cu.i
@@ -280,6 +298,7 @@ __/__/mpc_cuda/mpc_core.cu.i:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_invert.dir/build.make test/test_CORE/CMakeFiles/test_test_invert.dir/__/__/mpc_cuda/mpc_core.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_sort.dir/build.make test/test_CORE/CMakeFiles/test_test_sort.dir/__/__/mpc_cuda/mpc_core.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/mpc_core.cu.i
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/mpc_core.cu.i
 .PHONY : __/__/mpc_cuda/mpc_core.cu.i
 
 __/__/mpc_cuda/mpc_core.s: __/__/mpc_cuda/mpc_core.cu.s
@@ -291,6 +310,7 @@ __/__/mpc_cuda/mpc_core.cu.s:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_invert.dir/build.make test/test_CORE/CMakeFiles/test_test_invert.dir/__/__/mpc_cuda/mpc_core.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_sort.dir/build.make test/test_CORE/CMakeFiles/test_test_sort.dir/__/__/mpc_cuda/mpc_core.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/mpc_core.cu.s
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/mpc_core.cu.s
 .PHONY : __/__/mpc_cuda/mpc_core.cu.s
 
 test_communication.o: test_communication.cpp.o
@@ -365,6 +385,30 @@ test_invert.cpp.s:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_invert.dir/build.make test/test_CORE/CMakeFiles/test_test_invert.dir/test_invert.cpp.s
 .PHONY : test_invert.cpp.s
 
+test_lut.o: test_lut.cpp.o
+.PHONY : test_lut.o
+
+# target to build an object file
+test_lut.cpp.o:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/test_lut.cpp.o
+.PHONY : test_lut.cpp.o
+
+test_lut.i: test_lut.cpp.i
+.PHONY : test_lut.i
+
+# target to preprocess a source file
+test_lut.cpp.i:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/test_lut.cpp.i
+.PHONY : test_lut.cpp.i
+
+test_lut.s: test_lut.cpp.s
+.PHONY : test_lut.s
+
+# target to generate assembly for a file
+test_lut.cpp.s:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/test_lut.cpp.s
+.PHONY : test_lut.cpp.s
+
 test_sort.o: test_sort.cpp.o
 .PHONY : test_sort.o
 
@@ -405,6 +449,7 @@ help:
 	@echo "... test_test_communication"
 	@echo "... test_test_fss"
 	@echo "... test_test_invert"
+	@echo "... test_test_lut"
 	@echo "... test_test_sort"
 	@echo "... __/__/mpc_cuda/fss_cuda.o"
 	@echo "... __/__/mpc_cuda/fss_cuda.i"
@@ -421,6 +466,9 @@ help:
 	@echo "... test_invert.o"
 	@echo "... test_invert.i"
 	@echo "... test_invert.s"
+	@echo "... test_lut.o"
+	@echo "... test_lut.i"
+	@echo "... test_lut.s"
 	@echo "... test_sort.o"
 	@echo "... test_sort.i"
 	@echo "... test_sort.s"

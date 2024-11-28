@@ -74,52 +74,70 @@ public:
         return uint128_t(high * bit, low * bit);
     }
 
-    // optimized left shift operator
-    __host__ __device__ __forceinline__ uint128_t operator<<(unsigned int shift) const {
-        // use bit mask to optimize branch
+    // // optimized left shift operator
+    // __host__ __device__ __forceinline__ uint128_t operator<<(uint32_t shift) const {
+    //     // use bit mask to optimize branch
+    //     const uint64_t mask = shift >= 64 ? 0xFFFFFFFFFFFFFFFF : 0;
+    //     const uint32_t effective_shift = shift & 63;  // shift % 64
+        
+    //     uint64_t new_high, new_low;
+        
+    //     // use conditional selection instead of branch
+    //     new_high = (~mask & ((high << effective_shift) | 
+    //                ((low >> (64 - effective_shift)) & ~(-1LL << effective_shift))));
+    //     new_low = (~mask & (low << effective_shift)) | 
+    //               ((mask & high) << effective_shift);
+        
+    //     return uint128_t(new_high, new_low);
+    // }
+        // optimized left shift operator for GPU
+    __host__ __device__ __forceinline__ uint128_t operator<<(uint32_t shift) const {
         const uint64_t mask = shift >= 64 ? 0xFFFFFFFFFFFFFFFF : 0;
-        const unsigned int effective_shift = shift & 63;  // shift % 64
+        const uint32_t effective_shift = shift & 63;
         
-        uint64_t new_high, new_low;
-        
-        // use conditional selection instead of branch
-        new_high = (~mask & ((high << effective_shift) | 
-                   ((low >> (64 - effective_shift)) & ~(-1LL << effective_shift))));
-        new_low = (~mask & (low << effective_shift)) | 
-                  ((mask & high) << effective_shift);
+        // When shift >= 128, both new_high and new_low will be 0 due to mask operations
+        uint64_t new_high = 
+            (~mask & ((high << effective_shift) | 
+            (shift < 64 ? (low >> (64 - effective_shift)) : 0))) |
+            (mask & ((shift < 128 ? low << effective_shift : 0)));
+            
+        uint64_t new_low = 
+            (~mask & (low << effective_shift));
         
         return uint128_t(new_high, new_low);
     }
 
     // optimized right shift operator
-    __host__ __device__ __forceinline__ uint128_t operator>>(unsigned int shift) const {
+    __host__ __device__ __forceinline__ uint128_t operator>>(uint32_t shift) const {
+        if (shift == 0) return *this;  // 添加对shift=0的特殊处理
+        
         const uint64_t mask = shift >= 64 ? 0xFFFFFFFFFFFFFFFF : 0;
-        const unsigned int effective_shift = shift & 63;  // shift % 64
+        const uint32_t effective_shift = shift & 63;  // shift % 64
         
         uint64_t new_high, new_low;
         
         new_high = (~mask & (high >> effective_shift));
         new_low = ((~mask & (low >> effective_shift)) | 
-                  (~mask & (high << (64 - effective_shift)))) |
+                  (~mask & (high << (effective_shift ? 64 - effective_shift : 0)))) |
                   ((mask & high) >> effective_shift);
         
         return uint128_t(new_high, new_low);
     }
 
     // left shift assign operator
-    __host__ __device__ uint128_t& operator<<=(unsigned int shift) {
+    __host__ __device__ uint128_t& operator<<=(uint32_t shift) {
         *this = *this << shift;
         return *this;
     }
 
     // right shift assign operator
-    __host__ __device__ uint128_t& operator>>=(unsigned int shift) {
+    __host__ __device__ uint128_t& operator>>=(uint32_t shift) {
         *this = *this >> shift;
         return *this;
     }
 
     // get bit
-    __host__ __device__ bool get_bit(unsigned int index) const {
+    __host__ __device__ bool get_bit(uint32_t index) const {
         return (*this >> index).low & 1;
     }
 

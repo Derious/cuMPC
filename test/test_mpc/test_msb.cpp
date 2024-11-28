@@ -26,22 +26,26 @@ int main(int argc, char** argv) {
     int N = 30520;
     MSB_Keys keys(N);
     cudaWarmup(1024 * 1024, 1);
-    auto start = clock_start();
-    cuda_mpc->cuda_msb_keygen(keys, N, party);
-    double timeused = time_from(start);
-    cout << "MSB keygen time used: " << timeused / 1000 << " ms" << endl;
+    auto start = std::chrono::high_resolution_clock::now();
+    for(int i = 0; i < BENCH; i++){
+        cuda_mpc->cuda_msb_keygen(keys, N, party);
+    }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    printf("MSB keygen Time taken: %f milliseconds\n", elapsed.count() * 1000 / BENCH);
 
     int64_t* value = new int64_t[N];
     prg.random_data(value, N*sizeof(int64_t));
 
 
     bool* res = new bool[N];
-    start = clock_start();
+    start = std::chrono::high_resolution_clock::now();
     for(int i = 0; i < BENCH; i++){
         cuda_mpc->cuda_msb_eval(res, keys, value, N, party);
     }
-    timeused = time_from(start);
-    cout << "MSB eval time used: " << timeused / BENCH / 1000 << " ms" << endl;
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    printf("MSB eval Time taken: %f milliseconds\n", elapsed.count() * 1000 / BENCH);
 
 
     cuda_mpc->GMW_B->open_vec(res, res, N);

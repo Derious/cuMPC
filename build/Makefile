@@ -275,6 +275,19 @@ test_test_fss/fast:
 	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/build
 .PHONY : test_test_fss/fast
 
+#=============================================================================
+# Target rules for targets named test_test_lut
+
+# Build rule for target.
+test_test_lut: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_test_lut
+.PHONY : test_test_lut
+
+# fast build rule for target.
+test_test_lut/fast:
+	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/build
+.PHONY : test_test_lut/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -291,6 +304,7 @@ help:
 	@echo "... test_test_communication"
 	@echo "... test_test_fss"
 	@echo "... test_test_invert"
+	@echo "... test_test_lut"
 	@echo "... test_test_matrix"
 	@echo "... test_test_memory_transfer"
 	@echo "... test_test_msb"
