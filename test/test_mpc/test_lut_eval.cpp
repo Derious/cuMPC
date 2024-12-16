@@ -1,10 +1,63 @@
 #include "../../mpc_cuda/mpc_core.h"
+#include <future>
 using namespace emp;
 using namespace Eigen;
 using namespace std;
 const static int nP = 2;
 int party, port;
-#define bench 20
+#define bench 10
+
+void OpenVec(NetIO* io, ThreadPool * pool, int64_t* value, int64_t* share_value, int length, int party) {
+
+        int64_t* tmp = new int64_t[length];
+        auto start = emp::clock_start();
+        if(party == 1){
+            io->send_data(share_value,length*sizeof(int64_t));
+            io->flush();
+            io->recv_data(tmp,length*sizeof(int64_t));
+            io->flush();
+        }
+        else{
+            io->recv_data(tmp,length*sizeof(int64_t));
+            io->flush();
+            io->send_data(share_value,length*sizeof(int64_t));
+            io->flush();
+        }
+        
+        // vector<future<void>> res;//relic multi-thread problems...
+        // res.push_back(pool->enqueue([io,share_value,tmp,length,party2]() {
+        //     io->send_data(share_value,length*sizeof(int64_t));
+        //     io->flush();
+        //     io->recv_data(tmp[party2],length*sizeof(int64_t));
+        //     io->flush();
+        // }));
+        // // res.push_back(pool->enqueue([io,tmp,length,party2]() {
+            
+        // // }));
+        // joinNclean(res);
+        double end = emp::time_from(start);
+        printf("Open Vec Time taken: %f milliseconds\n", end/1000);
+
+        start = emp::clock_start();
+        for (int j = 0; j < length; j++)
+        {
+
+                value[j] += tmp[j];
+                // cout<<"delta_a:"<<delta_i[i]<<"\tdelta_b:"<<delta2_i[i]<<"\tdeltab:"<<deltab<<endl;
+                #ifdef _debug_
+                cout<<"share_value:"<<tmp[i]<<endl;
+                #endif
+
+            #ifdef _debug_
+            cout<<"sum:"<<sum<<endl;
+            #endif
+            // value[j] = sum[j];
+        }
+        end = emp::time_from(start);
+        printf("Sum Time taken: %f milliseconds\n", end/1000);
+
+        delete[] tmp;
+    }
 
 
 int main(int argc, char** argv) {
@@ -20,16 +73,27 @@ int main(int argc, char** argv) {
     cuda_mpc_core<nP> *cuda_mpc = new cuda_mpc_core<nP>(&io, &pool, party);
 
     cudaWarmup(512, party);
-    uint64_t N = 1;
+    uint64_t N = 128*3072;
     int64_t* alpha = (int64_t*)malloc(N * sizeof(int64_t));
     for(uint64_t i = 0; i < N; i++){
         if(party == 1){
-            alpha[i] = 0;
+            alpha[i] = i;
         }
         else{
             alpha[i] = 0;
         }
     }
+
+    // NetIO* io2 = new NetIO(party==1 ? nullptr:"127.0.0.1", port);
+    // auto start = emp::clock_start();
+    // for(int i = 0; i < bench; i++){
+    //     auto start_open = emp::clock_start();
+    //     OpenVec(io2, &pool, alpha, alpha, N, party);
+    //     double end_open = emp::time_from(start_open);
+    //     printf("Open internal Time taken: %f milliseconds\n", end_open/1000);
+    // }
+    // double end = emp::time_from(start);
+    // printf("Open Vec Time taken: %f milliseconds\n", end/1000/bench);
 
     LUT_Selection_Keys keys(N);
 

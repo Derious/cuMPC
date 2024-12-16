@@ -80,5 +80,6 @@
         "__bit_reference": "cpp",
         "__functional_base": "cpp",
         "__memory": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }

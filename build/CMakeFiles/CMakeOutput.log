@@ -3099,3 +3099,27 @@ _rdseed64_step(&r);
 return 0;
 }
 
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_4cd25/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_4cd25.dir/build.make CMakeFiles/cmTC_4cd25.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4cd25.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_4cd25.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_4cd25
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4cd25.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_4cd25.dir/src.c.o -o cmTC_4cd25 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+

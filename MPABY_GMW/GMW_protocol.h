@@ -435,30 +435,18 @@ public:
         value = sum;
 
     }
-
     void open_vec_2PC(int64_t* value, int64_t* share_value, int length) {
 
-        int64_t *tmp[nP+1] = {nullptr};
-
-        for (int i = 1; i <= nP; i++)
-        {
-            tmp[i] = new int64_t[length];
-            /* code */
-        }
-        memcpy(tmp[party],share_value,length*sizeof(int64_t));
-
-        int64_t* sum = new int64_t[length];
-        memset(sum, 0, length * sizeof(int64_t));
-        
+        int64_t *tmp = new int64_t[length];
         int another_party = party == 1 ? 2 : 1;
         if(party == 1){
             io->send_data(another_party,share_value,length*sizeof(int64_t));
             io->flush(another_party);
-            io->recv_data(another_party,tmp[another_party],length*sizeof(int64_t));
+            io->recv_data(another_party,tmp,length*sizeof(int64_t));
             io->flush(another_party);
         }
         else{
-            io->recv_data(another_party,tmp[another_party],length*sizeof(int64_t));
+            io->recv_data(another_party,tmp,length*sizeof(int64_t));
             io->flush(another_party);
             io->send_data(another_party,share_value,length*sizeof(int64_t));
             io->flush(another_party);
@@ -466,22 +454,60 @@ public:
 
         for (int j = 0; j < length; j++)
         {
-            for (int i = 1; i <= nP; i++)
-            {
-                sum[j] += tmp[i][j];
-                // cout<<"delta_a:"<<delta_i[i]<<"\tdelta_b:"<<delta2_i[i]<<"\tdeltab:"<<deltab<<endl;
-                #ifdef _debug_
-                cout<<"share_value:"<<tmp[i]<<endl;
-                #endif
-            }
+            value[j] += tmp[j];
+            // cout<<"delta_a:"<<delta_i[i]<<"\tdelta_b:"<<delta2_i[i]<<"\tdeltab:"<<deltab<<endl;
             #ifdef _debug_
-            cout<<"sum:"<<sum<<endl;
+            cout<<"share_value:"<<tmp[j]<<endl;
             #endif
-            value[j] = sum[j];
         }
-
-        delete[] sum;
+        delete[] tmp;
     }
+    // void open_vec_2PC(int64_t* value, int64_t* share_value, int length) {
+
+    //     int64_t *tmp[nP+1] = {nullptr};
+
+    //     for (int i = 1; i <= nP; i++)
+    //     {
+    //         tmp[i] = new int64_t[length];
+    //         /* code */
+    //     }
+    //     memcpy(tmp[party],share_value,length*sizeof(int64_t));
+
+    //     int64_t* sum = new int64_t[length];
+    //     memset(sum, 0, length * sizeof(int64_t));
+        
+    //     int another_party = party == 1 ? 2 : 1;
+    //     if(party == 1){
+    //         io->send_data(another_party,share_value,length*sizeof(int64_t));
+    //         io->flush(another_party);
+    //         io->recv_data(another_party,tmp[another_party],length*sizeof(int64_t));
+    //         io->flush(another_party);
+    //     }
+    //     else{
+    //         io->recv_data(another_party,tmp[another_party],length*sizeof(int64_t));
+    //         io->flush(another_party);
+    //         io->send_data(another_party,share_value,length*sizeof(int64_t));
+    //         io->flush(another_party);
+    //     }
+
+    //     for (int j = 0; j < length; j++)
+    //     {
+    //         for (int i = 1; i <= nP; i++)
+    //         {
+    //             sum[j] += tmp[i][j];
+    //             // cout<<"delta_a:"<<delta_i[i]<<"\tdelta_b:"<<delta2_i[i]<<"\tdeltab:"<<deltab<<endl;
+    //             #ifdef _debug_
+    //             cout<<"share_value:"<<tmp[i]<<endl;
+    //             #endif
+    //         }
+    //         #ifdef _debug_
+    //         cout<<"sum:"<<sum<<endl;
+    //         #endif
+    //         value[j] = sum[j];
+    //     }
+
+    //     delete[] sum;
+    // }
 
     void open_vec(int64_t* value, int64_t* share_value, int length) {
 
