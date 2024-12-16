@@ -1,0 +1,1 @@
+ps -aux|grep test_test | awk '{print $2;}'| xargs kill -9

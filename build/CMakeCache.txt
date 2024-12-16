@@ -230,6 +230,9 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//No help, variable specified on the command line.
+CMKE_BUILD_TYPE:UNINITIALIZED=Debug
+
 //Enable computing various crypto operations in circuit
 CRYPTO_IN_CIRCUIT:BOOL=OFF
 

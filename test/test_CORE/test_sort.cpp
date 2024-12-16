@@ -16,7 +16,7 @@ vector<int> sample(int n, int sample_size) {
     random_device rd;
     mt19937 gen(rd());
     shuffle(indices.begin(), indices.end(), gen);
-    return vector<int>(indices.begin(), indices.begin() + sample_size);
+    return vector<int>(indices.end() - sample_size, indices.end());
 }
 
 // 比较函数（模拟比较操作）
@@ -90,7 +90,7 @@ void aav86_sort(vector<int>& arr, int k) {
     }
 }
 
-vector<int> generateRandomData(int size, int min_val = 1, int max_val = 10000) {
+vector<int> generateRandomData(int size, int min_val = 1, int max_val = 0xFFFFFF) {
     vector<int> data(size);
     random_device rd;  // 获取随机数种子
     mt19937 gen(rd()); // 使用Mersenne Twister生成器
@@ -103,9 +103,12 @@ vector<int> generateRandomData(int size, int min_val = 1, int max_val = 10000) {
 }
 
 // 添加新的函数：AAV86 排序的修改版本 - 只选择最大值
-void modified_aav86_max(vector<int>& arr, int k) {
+void modified_aav86_max(vector<int>& arr, int k, int* number) {
     int n = arr.size();
+    cout << "n = " << n << ", k = " << k << endl;
+    
     if (k == 1 || n <= 1) {
+        *number += n*(n-1)/2;
         // 基本情况，直接找最大值
         if (n > 1) {
             int max_val = arr[0];
@@ -124,7 +127,10 @@ void modified_aav86_max(vector<int>& arr, int k) {
 
     // 计算 p = ceil(n^(1/k))
     int p = ceil(pow(n, 1.0 / k));
-
+    // p = 2;
+    // int p = 3;
+    cout << "p = " << p << endl;
+    *number += (n-p-1)*(p-1);
     // 采样 P 集合
     vector<int> sample_indices = sample(n, p - 1);
     vector<int> pivots;
@@ -152,7 +158,7 @@ void modified_aav86_max(vector<int>& arr, int k) {
 
     // 只对大于枢轴的块进行递归
     if (!larger_block.empty()) {
-        modified_aav86_max(larger_block, k - 1);
+        modified_aav86_max(larger_block, k - 1, number);
         
         // 将找到的最大值放回原数组末尾
         arr[n-1] = larger_block.back();
@@ -162,29 +168,83 @@ void modified_aav86_max(vector<int>& arr, int k) {
     }
 }
 
+// 快速选择算法实现的TopK选择
+vector<int> quick_select_topk(vector<int>& arr, int K, int* number) {
+    if (arr.empty() || K <= 0) return vector<int>();
+    printf("arr size: %lu, K: %d\n", arr.size(), K);
+    // 选择最后一个元素作为pivot
+    int pivot = arr.back();
+    vector<int> S_L, S_R;
+    S_R.push_back(pivot);  // pivot直接放入右侧集合
+
+    // 将其他元素分到左右两个集合
+    for (size_t i = 0; i < arr.size() - 1; i++) {
+        (*number)++;  // 记录比较次数
+        if (arr[i] >= pivot) {
+            S_R.push_back(arr[i]);
+        } else {
+            S_L.push_back(arr[i]);
+        }
+    }
+
+    int K_prime = S_R.size();
+
+    // 根据K'和K的关系决定下一步操作
+    if (K_prime == K) {
+        return S_R;
+    } else if (K_prime > K) {
+        return quick_select_topk(S_R, K, number);
+    } else {  // K_prime < K
+        vector<int> remaining = quick_select_topk(S_L, K - K_prime, number);
+        remaining.insert(remaining.end(), S_R.begin(), S_R.end());
+        return remaining;
+    }
+}
+
 int main() {
     // vector<int> data = {5, 2, 9, 1, 5, 6, 10, 3, 8, 7};
-    vector<int> data = generateRandomData(100);
-    int k = 4; // 设置迭代次数
-    cout << "Original Array: ";
-    for (int num : data) {
-        cout << num << " ";
-    }
-    cout << endl;
+    vector<int> data = generateRandomData(10720);
+    vector<int> data2 = data;
 
-    aav86_sort(data, k);
-    cout << "Sorted Array: ";
-    for (int num : data) {
-        cout << num << " ";
-    }
-    cout << endl;
-    
+    int n = data.size();
+    int k = 6; // 设置迭代次数
+     
     //Shuffle the values of data
     random_shuffle(data.begin(), data.end());
-    
 
-    modified_aav86_max(data, k);
-    cout << "Maximum value: " << data.back() << endl;
+    int number = 0;
+    auto start = chrono::high_resolution_clock::now();
+    modified_aav86_max(data, k, &number);
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+    cout << "Time taken for finding max: " << duration.count() << " milliseconds" << endl;
+    cout << "max value: " << data.back() << endl;
+    cout << "compare number: " << number << endl;
+
+    start = chrono::high_resolution_clock::now();
+    auto max_value = std::max_element(data.begin(), data.end());
+    end = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+    cout << "Time taken for finding max: " << duration.count() << " milliseconds" << endl;
+    cout << "Maximum value: " << *max_value << endl;
+
+    // 测试快速选择的TopK实现
+    // vector<int> data_quickselect = generateRandomData(30720);
+    int topk = 1;  // 要找前100个最大值
+    number = 0;
+    
+    start = chrono::high_resolution_clock::now();
+    vector<int> result = quick_select_topk(data2, topk, &number);
+    end = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+    
+    cout << "\nQuick Select Top " << topk << " values:" << endl;
+    for (int i = 0; i < min(topk, (int)result.size()); ++i) {
+        cout << result[i] << " ";
+    }
+    cout << "\nTime taken for finding top " << topk << ": " 
+         << duration.count() << " milliseconds" << endl;
+    cout << "Compare number: " << number << endl;
 
     return 0;
 }

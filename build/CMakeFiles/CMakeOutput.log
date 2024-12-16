@@ -2785,3 +2785,317 @@ _rdseed64_step(&r);
 return 0;
 }
 
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_4e68b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_4e68b.dir/build.make CMakeFiles/cmTC_4e68b.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4e68b.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_4e68b.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_4e68b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4e68b.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_4e68b.dir/src.c.o -o cmTC_4e68b 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_875bd/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_875bd.dir/build.make CMakeFiles/cmTC_875bd.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_875bd.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_875bd.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_875bd
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_875bd.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_875bd.dir/src.c.o -o cmTC_875bd 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_eab5e/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_eab5e.dir/build.make CMakeFiles/cmTC_eab5e.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_eab5e.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_eab5e.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_eab5e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_eab5e.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_eab5e.dir/src.c.o -o cmTC_eab5e 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_47679/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_47679.dir/build.make CMakeFiles/cmTC_47679.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_47679.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_47679.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_47679
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_47679.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_47679.dir/src.c.o -o cmTC_47679 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_5f1bf/fast && gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+/usr/bin/gmake  -f CMakeFiles/cmTC_5f1bf.dir/build.make CMakeFiles/cmTC_5f1bf.dir/build
+gmake[2]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5f1bf.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_5f1bf.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_5f1bf
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5f1bf.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_5f1bf.dir/src.c.o -o cmTC_5f1bf 
+gmake[2]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_5937d/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_5937d.dir/build.make CMakeFiles/cmTC_5937d.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5937d.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_5937d.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_5937d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5937d.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_5937d.dir/src.c.o -o cmTC_5937d 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_4dc7b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_4dc7b.dir/build.make CMakeFiles/cmTC_4dc7b.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4dc7b.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_4dc7b.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_4dc7b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4dc7b.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_4dc7b.dir/src.c.o -o cmTC_4dc7b 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_be062/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_be062.dir/build.make CMakeFiles/cmTC_be062.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_be062.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_be062.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_be062
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_be062.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_be062.dir/src.c.o -o cmTC_be062 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_a5af9/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_a5af9.dir/build.make CMakeFiles/cmTC_a5af9.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a5af9.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_a5af9.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_a5af9
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a5af9.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_a5af9.dir/src.c.o -o cmTC_a5af9 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_d780b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_d780b.dir/build.make CMakeFiles/cmTC_d780b.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d780b.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_d780b.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_d780b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d780b.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_d780b.dir/src.c.o -o cmTC_d780b 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_8e5b6/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_8e5b6.dir/build.make CMakeFiles/cmTC_8e5b6.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_8e5b6.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_8e5b6.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_8e5b6
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8e5b6.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_8e5b6.dir/src.c.o -o cmTC_8e5b6 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_d1543/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_d1543.dir/build.make CMakeFiles/cmTC_d1543.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d1543.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_d1543.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_d1543
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d1543.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_d1543.dir/src.c.o -o cmTC_d1543 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+
+Performing C SOURCE FILE Test RDSEED_RUN_RESULT succeeded with the following compile output:
+Change Dir: /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_f05d5/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_f05d5.dir/build.make CMakeFiles/cmTC_f05d5.dir/build
+gmake[1]: Entering directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f05d5.dir/src.c.o
+/usr/bin/cc -DRDSEED_RUN_RESULT  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -o CMakeFiles/cmTC_f05d5.dir/src.c.o -c /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_f05d5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f05d5.dir/link.txt --verbose=1
+/usr/bin/cc  -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -mrdseed -rdynamic CMakeFiles/cmTC_f05d5.dir/src.c.o -o cmTC_f05d5 
+gmake[1]: Leaving directory '/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles/CMakeTmp'
+
+
+...and run output:
+
+Return value: 1
+Source file was:
+#include <x86intrin.h>
+int main(){
+unsigned long long r;
+_rdseed64_step(&r);
+return 0;
+}
+

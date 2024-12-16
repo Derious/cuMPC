@@ -224,6 +224,19 @@ test_test_msb/fast:
 .PHONY : test_test_msb/fast
 
 #=============================================================================
+# Target rules for targets named test_test_lut_eval
+
+# Build rule for target.
+test_test_lut_eval: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_test_lut_eval
+.PHONY : test_test_lut_eval
+
+# fast build rule for target.
+test_test_lut_eval/fast:
+	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_lut_eval.dir/build.make test/test_mpc/CMakeFiles/test_test_lut_eval.dir/build
+.PHONY : test_test_lut_eval/fast
+
+#=============================================================================
 # Target rules for targets named test_test_communication
 
 # Build rule for target.
@@ -288,6 +301,19 @@ test_test_lut/fast:
 	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/build
 .PHONY : test_test_lut/fast
 
+#=============================================================================
+# Target rules for targets named test_test_exp
+
+# Build rule for target.
+test_test_exp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_test_exp
+.PHONY : test_test_exp
+
+# fast build rule for target.
+test_test_exp/fast:
+	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_exp.dir/build.make test/test_CORE/CMakeFiles/test_test_exp.dir/build
+.PHONY : test_test_exp/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -302,9 +328,11 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... test_test_communication"
+	@echo "... test_test_exp"
 	@echo "... test_test_fss"
 	@echo "... test_test_invert"
 	@echo "... test_test_lut"
+	@echo "... test_test_lut_eval"
 	@echo "... test_test_matrix"
 	@echo "... test_test_memory_transfer"
 	@echo "... test_test_msb"

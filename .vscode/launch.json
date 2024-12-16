@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/bin/test_test_msb",
-            "args": ["1","1234"],
+            "args": ["2","1234"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

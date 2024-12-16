@@ -77,6 +77,8 @@
         "__config": "cpp",
         "filesystem": "cpp",
         "__node_handle": "cpp",
-        "__bit_reference": "cpp"
+        "__bit_reference": "cpp",
+        "__functional_base": "cpp",
+        "__memory": "cpp"
     }
 }

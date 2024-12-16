@@ -12,7 +12,7 @@ using namespace std;
 const static int nP = 2;
 int party, port;
 const static int length = 256*768;
-const static int64_t rowsA = 256, colsA = 3072, rowsB = 3072, colsB = 768;
+const static int64_t rowsA = 1, colsA = 65536, rowsB = 65536, colsB = 1;
 
 int main(int argc, char** argv) {
  

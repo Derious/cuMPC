@@ -152,6 +152,17 @@ extern "C" void cudaMPC_MM(MatrixRowMajor &Public_C, MatrixRowMajor &Public_A, M
     cudaGetDevice(&currentDevice);
     std::cout << "Currently using CUDA device: " << currentDevice << std::endl;
 
+    cudaEvent_t start1, stop1, start2, stop2, start3, stop3, start4, stop4;
+    cudaEventCreate(&start1);   
+    cudaEventCreate(&stop1);
+    cudaEventCreate(&start2);   
+    cudaEventCreate(&stop2);
+    cudaEventCreate(&start3);   
+    cudaEventCreate(&stop3);
+    cudaEventCreate(&start4);   
+    cudaEventCreate(&stop4);
+
+    
     // 矩阵大小
     int rowsA = Public_A.rows();
     int colsA = Public_A.cols();
@@ -165,41 +176,59 @@ extern "C" void cudaMPC_MM(MatrixRowMajor &Public_C, MatrixRowMajor &Public_A, M
     cudaMalloc((void**)&d_A, sizeA);
     cudaMalloc((void**)&d_B, sizeB);
     cudaMalloc((void**)&d_C, sizeC);
-    // cudaMalloc((void**)&d_R_A, sizeA);
-    // cudaMalloc((void**)&d_R_B, sizeB);
-    // cudaMalloc((void**)&d_R_AB, sizeC);
     cudaMalloc((void**)&d_temp, sizeC);
     cudaMalloc((void**)&d_temp2, sizeC);
+
+    cudaEventRecord(start4);
     // 拷贝数据到设备
     cudaMemcpy(d_A, Public_A.data(), sizeA, cudaMemcpyHostToDevice);
     cudaMemcpy(d_B, Public_B.data(), sizeB, cudaMemcpyHostToDevice);
-    // cudaMemcpy(d_R_A, keys.R_A.data(), sizeA, cudaMemcpyHostToDevice);
-    // cudaMemcpy(d_R_B, keys.R_B.data(), sizeB, cudaMemcpyHostToDevice);
-    // cudaMemcpy(d_R_AB, keys.R_AB.data(), sizeC, cudaMemcpyHostToDevice);
 
+
+    cudaEventRecord(stop4);
+
+    cudaEventRecord(start2);
     // Allocate and transfer data to GPU
     if (!MMKeysToGPU(keys, &d_R_A, &d_R_B, &d_R_AB)) {
         std::cerr << "Failed to allocate and transfer data to GPU" << std::endl;
         return;
     }
+    cudaEventRecord(stop2);
+
 
     // 定义 CUDA 的线程块和网格大小
     dim3 threadsPerBlock(16, 16);
     dim3 blocksPerGrid((colsA + 15) / 16, (rowsA + 15) / 16);
 
+    
     // 启动 CUDA 核函数
+    cudaEventRecord(start1);
     matrixMulKernel<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_temp, rowsA, colsA, colsB);
     matrixMulKernel<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_R_B, d_temp2, rowsA, colsA, colsB);
     MatrixLinearKernel<<<blocksPerGrid, threadsPerBlock>>>((party-1), d_temp, -1, d_temp2, 0, d_temp, rowsA, colsB);
     matrixMulKernel<<<blocksPerGrid, threadsPerBlock>>>(d_R_A, d_B, d_temp2, rowsA, colsA, colsB);
     MatrixLinearKernel<<<blocksPerGrid, threadsPerBlock>>>(1, d_temp, -1, d_temp2, 0, d_temp, rowsA, colsB);
     MatrixLinearKernel<<<blocksPerGrid, threadsPerBlock>>>(1, d_temp, 1, d_R_AB, 0, d_C, rowsA, colsB);
-
     // 同步，检查错误
     cudaDeviceSynchronize();
+    cudaEventRecord(stop1);
+
 
     // 拷贝结果回主机
+    cudaEventRecord(start3);
     cudaMemcpy(Public_C.data(), d_C, sizeC, cudaMemcpyDeviceToHost);
+    cudaEventRecord(stop3);
+
+    float time1 = 0, time2 = 0, time3 = 0, time4 = 0;
+    cudaEventElapsedTime(&time1, start1, stop1);
+    cudaEventElapsedTime(&time2, start2, stop2);
+    cudaEventElapsedTime(&time3, start3, stop3);
+    cudaEventElapsedTime(&time4, start4, stop4);
+    // 打印结果
+    printf("matrixMulKernel time: %.3f ms\n", time1);
+    printf("MMKeysToGPU time: %.3f ms\n", time2);
+    printf("cudaMemcpyDeviceToHost time: %.3f ms\n", time3);
+    printf("alloc memory time: %.3f ms\n", time4);
 
     // 释放设备内存
     cudaFree(d_A);

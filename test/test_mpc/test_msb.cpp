@@ -3,12 +3,13 @@
 #include "emp-tool/emp-tool.h"
 #include "mpc_cuda/mpc_core.h"
 #include "../../MPABY_GMW/GMW_protocol.h"
+#include <cuda_runtime.h>
 using namespace emp;
 using namespace Eigen;
 using namespace std;
 const static int nP = 2;
 int party, port;
-#define BENCH 20
+// #define BENCH 1
 
 
 int main(int argc, char** argv) {
@@ -22,40 +23,36 @@ int main(int argc, char** argv) {
 	ThreadPool pool(4);	
     PRG prg;
     cuda_mpc_core<nP> *cuda_mpc = new cuda_mpc_core<nP>(&io, &pool, party);
+    // double total_time = 0;
+
     
-    int N = 30520;
-    MSB_Keys keys(N);
-    cudaWarmup(1024 * 1024, 1);
+    uint64_t N = 128*3072;
+    uint64_t bufsize = 256*3072;
+    cout << "N: " << N << endl;
+    MSB_Keys keys(bufsize);
+    cudaWarmup(1024 * 1024, party);
     auto start = std::chrono::high_resolution_clock::now();
-    for(int i = 0; i < BENCH; i++){
-        cuda_mpc->cuda_msb_keygen(keys, N, party);
+    for(int i = 0; i < 1; i++){
+        cuda_mpc->cuda_msb_keygen(keys, bufsize, party);
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
-    printf("MSB keygen Time taken: %f milliseconds\n", elapsed.count() * 1000 / BENCH);
+    printf("MSB keygen Time taken: %f milliseconds\n", elapsed.count() * 1000 / 1);
 
+    //Online Phase
+    printf("Online Phase\n");
+    // for (size_t t = 0; t < log2(N); t++)
+    // {
+    // N = N/2;
     int64_t* value = new int64_t[N];
     prg.random_data(value, N*sizeof(int64_t));
 
 
     bool* res = new bool[N];
-    start = std::chrono::high_resolution_clock::now();
-    for(int i = 0; i < BENCH; i++){
-        cuda_mpc->cuda_msb_eval(res, keys, value, N, party);
-    }
-    end = std::chrono::high_resolution_clock::now();
-    elapsed = end - start;
-    printf("MSB eval Time taken: %f milliseconds\n", elapsed.count() * 1000 / BENCH);
 
+    cuda_mpc->cuda_msb_eval_buf(res, keys, value, N, party);
 
-    cuda_mpc->GMW_B->open_vec(res, res, N);
-    cuda_mpc->GMW_A->open_vec(value, value, N);
-    for(int i = 0; i < N; i++){
-        if((value[i] >= 0) == res[i]){
-            printf("Error: value[%d]=%ld, res[%d]=%d\n", i, value[i], i, res[i]);
-        }
-    }    
-    delete[] value;
-    delete[] res;
     delete cuda_mpc;
+    
+    
 }
