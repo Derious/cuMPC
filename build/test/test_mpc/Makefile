@@ -241,6 +241,20 @@ test_test_lut_eval/fast:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_lut_eval.dir/build.make test/test_mpc/CMakeFiles/test_test_lut_eval.dir/build
 .PHONY : test_test_lut_eval/fast
 
+# Convenience name for target.
+test/test_mpc/CMakeFiles/test_test_rank.dir/rule:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/test_mpc/CMakeFiles/test_test_rank.dir/rule
+.PHONY : test/test_mpc/CMakeFiles/test_test_rank.dir/rule
+
+# Convenience name for target.
+test_test_rank: test/test_mpc/CMakeFiles/test_test_rank.dir/rule
+.PHONY : test_test_rank
+
+# fast build rule for target.
+test_test_rank/fast:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/build
+.PHONY : test_test_rank/fast
+
 __/__/mpc_cuda/fss_cuda.o: __/__/mpc_cuda/fss_cuda.cu.o
 .PHONY : __/__/mpc_cuda/fss_cuda.o
 
@@ -251,6 +265,7 @@ __/__/mpc_cuda/fss_cuda.cu.o:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_uint128.dir/build.make test/test_mpc/CMakeFiles/test_test_uint128.dir/__/__/mpc_cuda/fss_cuda.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_msb.dir/build.make test/test_mpc/CMakeFiles/test_test_msb.dir/__/__/mpc_cuda/fss_cuda.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_lut_eval.dir/build.make test/test_mpc/CMakeFiles/test_test_lut_eval.dir/__/__/mpc_cuda/fss_cuda.cu.o
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/__/__/mpc_cuda/fss_cuda.cu.o
 .PHONY : __/__/mpc_cuda/fss_cuda.cu.o
 
 __/__/mpc_cuda/fss_cuda.i: __/__/mpc_cuda/fss_cuda.cu.i
@@ -263,6 +278,7 @@ __/__/mpc_cuda/fss_cuda.cu.i:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_uint128.dir/build.make test/test_mpc/CMakeFiles/test_test_uint128.dir/__/__/mpc_cuda/fss_cuda.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_msb.dir/build.make test/test_mpc/CMakeFiles/test_test_msb.dir/__/__/mpc_cuda/fss_cuda.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_lut_eval.dir/build.make test/test_mpc/CMakeFiles/test_test_lut_eval.dir/__/__/mpc_cuda/fss_cuda.cu.i
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/__/__/mpc_cuda/fss_cuda.cu.i
 .PHONY : __/__/mpc_cuda/fss_cuda.cu.i
 
 __/__/mpc_cuda/fss_cuda.s: __/__/mpc_cuda/fss_cuda.cu.s
@@ -275,6 +291,7 @@ __/__/mpc_cuda/fss_cuda.cu.s:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_uint128.dir/build.make test/test_mpc/CMakeFiles/test_test_uint128.dir/__/__/mpc_cuda/fss_cuda.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_msb.dir/build.make test/test_mpc/CMakeFiles/test_test_msb.dir/__/__/mpc_cuda/fss_cuda.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_lut_eval.dir/build.make test/test_mpc/CMakeFiles/test_test_lut_eval.dir/__/__/mpc_cuda/fss_cuda.cu.s
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/__/__/mpc_cuda/fss_cuda.cu.s
 .PHONY : __/__/mpc_cuda/fss_cuda.cu.s
 
 __/__/mpc_cuda/mpc_core.o: __/__/mpc_cuda/mpc_core.cu.o
@@ -287,6 +304,7 @@ __/__/mpc_cuda/mpc_core.cu.o:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_uint128.dir/build.make test/test_mpc/CMakeFiles/test_test_uint128.dir/__/__/mpc_cuda/mpc_core.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_msb.dir/build.make test/test_mpc/CMakeFiles/test_test_msb.dir/__/__/mpc_cuda/mpc_core.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_lut_eval.dir/build.make test/test_mpc/CMakeFiles/test_test_lut_eval.dir/__/__/mpc_cuda/mpc_core.cu.o
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/__/__/mpc_cuda/mpc_core.cu.o
 .PHONY : __/__/mpc_cuda/mpc_core.cu.o
 
 __/__/mpc_cuda/mpc_core.i: __/__/mpc_cuda/mpc_core.cu.i
@@ -299,6 +317,7 @@ __/__/mpc_cuda/mpc_core.cu.i:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_uint128.dir/build.make test/test_mpc/CMakeFiles/test_test_uint128.dir/__/__/mpc_cuda/mpc_core.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_msb.dir/build.make test/test_mpc/CMakeFiles/test_test_msb.dir/__/__/mpc_cuda/mpc_core.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_lut_eval.dir/build.make test/test_mpc/CMakeFiles/test_test_lut_eval.dir/__/__/mpc_cuda/mpc_core.cu.i
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/__/__/mpc_cuda/mpc_core.cu.i
 .PHONY : __/__/mpc_cuda/mpc_core.cu.i
 
 __/__/mpc_cuda/mpc_core.s: __/__/mpc_cuda/mpc_core.cu.s
@@ -311,6 +330,7 @@ __/__/mpc_cuda/mpc_core.cu.s:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_uint128.dir/build.make test/test_mpc/CMakeFiles/test_test_uint128.dir/__/__/mpc_cuda/mpc_core.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_msb.dir/build.make test/test_mpc/CMakeFiles/test_test_msb.dir/__/__/mpc_cuda/mpc_core.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_lut_eval.dir/build.make test/test_mpc/CMakeFiles/test_test_lut_eval.dir/__/__/mpc_cuda/mpc_core.cu.s
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/__/__/mpc_cuda/mpc_core.cu.s
 .PHONY : __/__/mpc_cuda/mpc_core.cu.s
 
 test_lut_eval.o: test_lut_eval.cpp.o
@@ -409,6 +429,30 @@ test_msb.cpp.s:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_msb.dir/build.make test/test_mpc/CMakeFiles/test_test_msb.dir/test_msb.cpp.s
 .PHONY : test_msb.cpp.s
 
+test_rank.o: test_rank.cpp.o
+.PHONY : test_rank.o
+
+# target to build an object file
+test_rank.cpp.o:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/test_rank.cpp.o
+.PHONY : test_rank.cpp.o
+
+test_rank.i: test_rank.cpp.i
+.PHONY : test_rank.i
+
+# target to preprocess a source file
+test_rank.cpp.i:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/test_rank.cpp.i
+.PHONY : test_rank.cpp.i
+
+test_rank.s: test_rank.cpp.s
+.PHONY : test_rank.s
+
+# target to generate assembly for a file
+test_rank.cpp.s:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/test_rank.cpp.s
+.PHONY : test_rank.cpp.s
+
 test_uint128.o: test_uint128.cu.o
 .PHONY : test_uint128.o
 
@@ -450,6 +494,7 @@ help:
 	@echo "... test_test_matrix"
 	@echo "... test_test_memory_transfer"
 	@echo "... test_test_msb"
+	@echo "... test_test_rank"
 	@echo "... test_test_uint128"
 	@echo "... __/__/mpc_cuda/fss_cuda.o"
 	@echo "... __/__/mpc_cuda/fss_cuda.i"
@@ -469,6 +514,9 @@ help:
 	@echo "... test_msb.o"
 	@echo "... test_msb.i"
 	@echo "... test_msb.s"
+	@echo "... test_rank.o"
+	@echo "... test_rank.i"
+	@echo "... test_rank.s"
 	@echo "... test_uint128.o"
 	@echo "... test_uint128.i"
 	@echo "... test_uint128.s"

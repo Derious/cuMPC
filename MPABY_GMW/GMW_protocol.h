@@ -1200,44 +1200,68 @@ public:
 
     void open_vec(bool* value, bool* share_value, int length) {
 
-        bool *tmp[nP+1] = {nullptr};
+        // bool *tmp[nP+1] = {nullptr};
 
-        for (int i = 1; i <= nP; i++)
-        {
-            tmp[i] = new bool[length];
-            /* code */
-        }
+        // for (int i = 1; i <= nP; i++)
+        // {
+        //     tmp[i] = new bool[length];
+        //     /* code */
+        // }
         
-        bool sum[length] = {0};
+        // bool sum[length] = {0};
 
-        memcpy(tmp[party],share_value,length*sizeof(bool));
+        // memcpy(tmp[party],share_value,length*sizeof(bool));
+
+        bool *tmp = new bool[length];
 
         vector<future<void>> res;//relic multi-thread problems...
-        for (int i = 1; i <= nP; i++)
-        {   
-            int party2 = i;
-            if (i!=party)
-            {
+        // for (int i = 1; i <= nP; i++)
+        // {   
+            int party2 = 3-party;
+            // if (party2!=party)
+            // {
                 res.push_back(pool->enqueue([this,share_value,length,party2]() {
                     io->send_data(party2,share_value,length*sizeof(bool));
                     io->flush(party2);
 				}));
                 res.push_back(pool->enqueue([this,tmp,length,party2]() {
-                    io->recv_data(party2,tmp[party2],length*sizeof(bool));
+                    io->recv_data(party2,tmp,length*sizeof(bool));
                     io->flush(party2);
                 }));
-            }
-        }
+            // }
+        // }
         joinNclean(res);
 
         for (int j = 0; j < length; j++)
         {
-            for (int i = 1; i <= nP; i++)
-            {
-                sum[j] = sum[j] != tmp[i][j];
+            // for (int i = 1; i <= nP; i++)
+            // {
+                // sum[j] = sum[j] != tmp[i][j];
 
-            }
-            value[j] = sum[j];
+            // }
+            value[j] = share_value[j] != tmp[j];
+        }
+    }
+
+    void open_vec_2PC(int64_t* value, bool* share_value, int length) {
+
+        bool *tmp = new bool[length];
+
+        vector<future<void>> res;//relic multi-thread problems...
+        int party2 = 3-party;
+        res.push_back(pool->enqueue([this,share_value,length,party2]() {
+            io->send_data(party2,share_value,length*sizeof(bool));
+            io->flush(party2);
+		}));
+        res.push_back(pool->enqueue([this,tmp,length,party2]() {
+            io->recv_data(party2,tmp,length*sizeof(bool));
+            io->flush(party2);
+        }));
+        joinNclean(res);
+
+        for (int j = 0; j < length; j++)
+        {
+            value[j] = (int64_t)(share_value[j] != tmp[j]);
         }
     }
 

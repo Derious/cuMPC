@@ -87,6 +87,7 @@ test/test_CORE/all: test/test_CORE/CMakeFiles/test_test_sort.dir/all
 test/test_CORE/all: test/test_CORE/CMakeFiles/test_test_fss.dir/all
 test/test_CORE/all: test/test_CORE/CMakeFiles/test_test_lut.dir/all
 test/test_CORE/all: test/test_CORE/CMakeFiles/test_test_exp.dir/all
+test/test_CORE/all: test/test_CORE/CMakeFiles/test_test_topk.dir/all
 .PHONY : test/test_CORE/all
 
 # Recursive "preinstall" directory target.
@@ -100,6 +101,7 @@ test/test_CORE/clean: test/test_CORE/CMakeFiles/test_test_sort.dir/clean
 test/test_CORE/clean: test/test_CORE/CMakeFiles/test_test_fss.dir/clean
 test/test_CORE/clean: test/test_CORE/CMakeFiles/test_test_lut.dir/clean
 test/test_CORE/clean: test/test_CORE/CMakeFiles/test_test_exp.dir/clean
+test/test_CORE/clean: test/test_CORE/CMakeFiles/test_test_topk.dir/clean
 .PHONY : test/test_CORE/clean
 
 #=============================================================================
@@ -111,6 +113,7 @@ test/test_mpc/all: test/test_mpc/CMakeFiles/test_test_memory_transfer.dir/all
 test/test_mpc/all: test/test_mpc/CMakeFiles/test_test_uint128.dir/all
 test/test_mpc/all: test/test_mpc/CMakeFiles/test_test_msb.dir/all
 test/test_mpc/all: test/test_mpc/CMakeFiles/test_test_lut_eval.dir/all
+test/test_mpc/all: test/test_mpc/CMakeFiles/test_test_rank.dir/all
 .PHONY : test/test_mpc/all
 
 # Recursive "preinstall" directory target.
@@ -123,6 +126,7 @@ test/test_mpc/clean: test/test_mpc/CMakeFiles/test_test_memory_transfer.dir/clea
 test/test_mpc/clean: test/test_mpc/CMakeFiles/test_test_uint128.dir/clean
 test/test_mpc/clean: test/test_mpc/CMakeFiles/test_test_msb.dir/clean
 test/test_mpc/clean: test/test_mpc/CMakeFiles/test_test_lut_eval.dir/clean
+test/test_mpc/clean: test/test_mpc/CMakeFiles/test_test_rank.dir/clean
 .PHONY : test/test_mpc/clean
 
 #=============================================================================
@@ -184,7 +188,7 @@ test/test_mpc/CMakeFiles/test_test_memory_transfer.dir/clean:
 test/test_mpc/CMakeFiles/test_test_uint128.dir/all:
 	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_uint128.dir/build.make test/test_mpc/CMakeFiles/test_test_uint128.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_uint128.dir/build.make test/test_mpc/CMakeFiles/test_test_uint128.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles --progress-num=41,42,43,44 "Built target test_test_uint128"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles --progress-num=49,50,51,52 "Built target test_test_uint128"
 .PHONY : test/test_mpc/CMakeFiles/test_test_uint128.dir/all
 
 # Build rule for subdir invocation for target.
@@ -256,6 +260,32 @@ test/test_mpc/CMakeFiles/test_test_lut_eval.dir/clean:
 .PHONY : test/test_mpc/CMakeFiles/test_test_lut_eval.dir/clean
 
 #=============================================================================
+# Target rules for target test/test_mpc/CMakeFiles/test_test_rank.dir
+
+# All Build rule for target.
+test/test_mpc/CMakeFiles/test_test_rank.dir/all:
+	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles --progress-num=37,38,39,40 "Built target test_test_rank"
+.PHONY : test/test_mpc/CMakeFiles/test_test_rank.dir/all
+
+# Build rule for subdir invocation for target.
+test/test_mpc/CMakeFiles/test_test_rank.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/test_mpc/CMakeFiles/test_test_rank.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles 0
+.PHONY : test/test_mpc/CMakeFiles/test_test_rank.dir/rule
+
+# Convenience name for target.
+test_test_rank: test/test_mpc/CMakeFiles/test_test_rank.dir/rule
+.PHONY : test_test_rank
+
+# clean rule for target.
+test/test_mpc/CMakeFiles/test_test_rank.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/clean
+.PHONY : test/test_mpc/CMakeFiles/test_test_rank.dir/clean
+
+#=============================================================================
 # Target rules for target test/test_CORE/CMakeFiles/test_test_communication.dir
 
 # All Build rule for target.
@@ -314,7 +344,7 @@ test/test_CORE/CMakeFiles/test_test_invert.dir/clean:
 test/test_CORE/CMakeFiles/test_test_sort.dir/all:
 	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_sort.dir/build.make test/test_CORE/CMakeFiles/test_test_sort.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_sort.dir/build.make test/test_CORE/CMakeFiles/test_test_sort.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles --progress-num=37,38,39,40 "Built target test_test_sort"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles --progress-num=41,42,43,44 "Built target test_test_sort"
 .PHONY : test/test_CORE/CMakeFiles/test_test_sort.dir/all
 
 # Build rule for subdir invocation for target.
@@ -410,6 +440,32 @@ test_test_exp: test/test_CORE/CMakeFiles/test_test_exp.dir/rule
 test/test_CORE/CMakeFiles/test_test_exp.dir/clean:
 	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_exp.dir/build.make test/test_CORE/CMakeFiles/test_test_exp.dir/clean
 .PHONY : test/test_CORE/CMakeFiles/test_test_exp.dir/clean
+
+#=============================================================================
+# Target rules for target test/test_CORE/CMakeFiles/test_test_topk.dir
+
+# All Build rule for target.
+test/test_CORE/CMakeFiles/test_test_topk.dir/all:
+	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles --progress-num=45,46,47,48 "Built target test_test_topk"
+.PHONY : test/test_CORE/CMakeFiles/test_test_topk.dir/all
+
+# Build rule for subdir invocation for target.
+test/test_CORE/CMakeFiles/test_test_topk.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/test_CORE/CMakeFiles/test_test_topk.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/zck/Document/MPC_CUDA/GPT_cuda/build/CMakeFiles 0
+.PHONY : test/test_CORE/CMakeFiles/test_test_topk.dir/rule
+
+# Convenience name for target.
+test_test_topk: test/test_CORE/CMakeFiles/test_test_topk.dir/rule
+.PHONY : test_test_topk
+
+# clean rule for target.
+test/test_CORE/CMakeFiles/test_test_topk.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/clean
+.PHONY : test/test_CORE/CMakeFiles/test_test_topk.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

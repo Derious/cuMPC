@@ -237,6 +237,19 @@ test_test_lut_eval/fast:
 .PHONY : test_test_lut_eval/fast
 
 #=============================================================================
+# Target rules for targets named test_test_rank
+
+# Build rule for target.
+test_test_rank: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_test_rank
+.PHONY : test_test_rank
+
+# fast build rule for target.
+test_test_rank/fast:
+	$(MAKE) $(MAKESILENT) -f test/test_mpc/CMakeFiles/test_test_rank.dir/build.make test/test_mpc/CMakeFiles/test_test_rank.dir/build
+.PHONY : test_test_rank/fast
+
+#=============================================================================
 # Target rules for targets named test_test_communication
 
 # Build rule for target.
@@ -314,6 +327,19 @@ test_test_exp/fast:
 	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_exp.dir/build.make test/test_CORE/CMakeFiles/test_test_exp.dir/build
 .PHONY : test_test_exp/fast
 
+#=============================================================================
+# Target rules for targets named test_test_topk
+
+# Build rule for target.
+test_test_topk: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_test_topk
+.PHONY : test_test_topk
+
+# fast build rule for target.
+test_test_topk/fast:
+	$(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/build
+.PHONY : test_test_topk/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -336,7 +362,9 @@ help:
 	@echo "... test_test_matrix"
 	@echo "... test_test_memory_transfer"
 	@echo "... test_test_msb"
+	@echo "... test_test_rank"
 	@echo "... test_test_sort"
+	@echo "... test_test_topk"
 	@echo "... test_test_uint128"
 .PHONY : help
 

@@ -79,7 +79,11 @@
         "__node_handle": "cpp",
         "__bit_reference": "cpp",
         "__functional_base": "cpp",
-        "__memory": "cpp"
+        "__memory": "cpp",
+        "__tuple": "cpp",
+        "__hash_table": "cpp",
+        "__split_buffer": "cpp",
+        "__tree": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

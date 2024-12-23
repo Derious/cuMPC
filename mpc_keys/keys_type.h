@@ -94,6 +94,36 @@ struct MSB_Keys {
         }
 };
 
+//unified MSB keys for GPU and CPU
+struct U_MSB_Keys {
+        DCF_Keys k;
+        int64_t* random;
+        bool* r_msb;
+        int N;
+        int maxlayer;
+        U_MSB_Keys(int N,int maxlayer=64) : k(nullptr), random(nullptr), r_msb(nullptr), N(N), maxlayer(maxlayer) {
+            cudaMallocManaged(&k, N * (1 + 16 + 1 + 18 * maxlayer + 16));
+            cudaMallocManaged(&random, N * sizeof(int64_t));
+            cudaMallocManaged(&r_msb, N * sizeof(bool));
+        }
+
+        void encode(uint8_t*& buf){
+            writeKeyBuf(buf, &N, sizeof(int));
+            writeKeyBuf(buf, &maxlayer, sizeof(int));
+            writeKeyBuf(buf, k, N * (1 + 16 + 1 + 18 * maxlayer + 16));
+            writeKeyBuf(buf, random, N * sizeof(int64_t));
+            writeKeyBuf(buf, r_msb, N * sizeof(bool));
+        }
+
+        void decode(uint8_t*& buf){
+            readKeyBuf(buf, &N, sizeof(int));
+            readKeyBuf(buf, &maxlayer, sizeof(int));
+            readKeyBuf(buf, k, N * (1 + 16 + 1 + 18 * maxlayer + 16));
+            readKeyBuf(buf, random, N * sizeof(int64_t));
+            readKeyBuf(buf, r_msb, N * sizeof(bool));
+        }
+};
+
 struct LUT_Keys {
         DCF_Keys k;
         int64_t* random_in;

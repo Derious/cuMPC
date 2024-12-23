@@ -9,8 +9,9 @@
 #include "../mpc_keys/fss_keygen.h"
 #include <cuda_runtime.h>
 // using namespace emp;
+using namespace std;
 using namespace Eigen;
-#define BENCH 20
+#define BENCH 10
 // #define Debug
 
 // CUDA 函数声明
@@ -53,6 +54,13 @@ class cuda_mpc_core {
             this->party = party;
             GMW_A = new GMWprotocolA<nP>(io, pool, party);
             GMW_B = new GMWprotocolB<nP>(io, pool, party);
+        }
+
+        ~cuda_mpc_core(){
+            // delete[] io;
+            // delete[] pool;
+            delete GMW_A;
+            delete GMW_B;
         }
 
     void CUDA_MPC_MM(MatrixRowMajor &Public_C, MatrixRowMajor &Public_A, MatrixRowMajor &Public_B, MM_Keys &keys, int party) {
@@ -160,35 +168,40 @@ class cuda_mpc_core {
 	    cudaMalloc(&r_msb_device, N * sizeof(bool));
 	    cudaMemcpy(r_msb_device, keys.r_msb, N * sizeof(bool), cudaMemcpyHostToDevice);
 
-        // memset(res,0,N*sizeof(bool)); 
-        // int NN = N/4;
-        // auto start3 = emp::clock_start();
-        // for(int j = 0; j < BENCH; j++){
-        //     NN = N/4;
-        //     for(int i = 0; i < log2(NN); i++){
-        //         NN = NN/2;
-        //         Map<MatrixRowMajor> value_map(value, NN, 1);
-        //         Map<MatrixRowMajor> random_map(keys.random, NN, 1);
-        //         MatrixRowMajor t = value_map - random_map;
-        //         GMW_A->open_vec_2PC(t.data(), t.data(), t.size());
-        //         cudamsbeval_buf(res,k_device,t.data(),r_msb_device, NN, keys.maxlayer, party);
-        //         GMW_B->open_vec(res,res,NN);
-        //     }
-        // }
-        // double timeused3 = emp::time_from(start3);
-        // std::cout << "msb eval Time taken: " << timeused3 / (1000*BENCH) << " ms" << std::endl;
-
-        auto start = emp::clock_start();
-        for(int i = 0; i < BENCH; i++){
-            Map<MatrixRowMajor> value_map(value, N, 1);
-            Map<MatrixRowMajor> random_map(keys.random, N, 1);
-            MatrixRowMajor t = value_map - random_map;
-            GMW_A->open_vec_2PC(t.data(), t.data(), t.size());
-            cudamsbeval_buf(res,k_device,t.data(),r_msb_device, N, keys.maxlayer, party);
-            GMW_B->open_vec(res,res,N);
+        memset(res,0,N*sizeof(bool)); 
+        int NN = N;
+        
+        for(int j = 0; j < BENCH; j++){
+            NN = N;
+            auto start3 = emp::clock_start();
+            for(int i = 0; i < log2(NN); i++){
+                NN = NN/2;
+                Map<MatrixRowMajor> value_map(value, NN, 1);
+                Map<MatrixRowMajor> random_map(keys.random, NN, 1);
+                MatrixRowMajor t = value_map - random_map;
+                GMW_A->open_vec_2PC(t.data(), t.data(), t.size());
+                cudamsbeval_buf(res,k_device,t.data(),r_msb_device, NN, keys.maxlayer, party);
+                GMW_B->open_vec(res,res,NN);
+            }
+            double timeused3 = emp::time_from(start3);
+            std::cout << "msb eval Time taken: " << timeused3 / (1000) << " ms" << std::endl;
         }
-        double timeused = emp::time_from(start);
-        std::cout << "msb eval Time taken: " << timeused / (1000*BENCH) << " ms" << std::endl;
+        
+
+        // auto start = emp::clock_start();
+        // for(int i = 0; i < BENCH; i++){
+        //     auto start = emp::clock_start();
+        //     Map<MatrixRowMajor> value_map(value, N, 1);
+        //     Map<MatrixRowMajor> random_map(keys.random, N, 1);
+        //     MatrixRowMajor t = value_map - random_map;
+        //     GMW_A->open_vec_2PC(t.data(), t.data(), t.size());
+        //     cudamsbeval_buf(res,k_device,t.data(),r_msb_device, N, keys.maxlayer, party);
+        //     GMW_B->open_vec(res,res,N);
+        //     double timeused = emp::time_from(start);
+        //     std::cout << "msb eval Time taken: " << timeused / (1000) << " ms" << std::endl;
+        // }
+        // double timeused = emp::time_from(start);
+        // std::cout << "msb eval Time taken: " << timeused / (1000*BENCH) << " ms" << std::endl;
 
         #ifdef Debug
         auto start2 = emp::clock_start();
@@ -196,7 +209,7 @@ class cuda_mpc_core {
         double timeused2 = emp::time_from(start2);
         std::cout << "open vec Time taken: " << timeused2 / (1000) << " ms" << std::endl;
         for(int i = 0; i < N; i++){
-            if((value[i] >= 0) == res[i]){
+            if((value[i] < 0) != res[i]){
                 printf("Error: value[%d]=%ld, res[%d]=%d\n", i, value[i], i, res[i]);
             }
         } 
@@ -438,6 +451,347 @@ class cuda_mpc_core {
         cudaFree(random_out_device);
         cudaFree(t_device);
         cudaFree(openres_device);
+    }
+
+
+    void cuda_ranksort(int64_t *res, MSB_Keys keys, int64_t *value, int N, int party){
+
+        int maxlayer = keys.maxlayer;
+
+        DCF_Keys k_device;
+	    cudaMalloc(&k_device, N * N * (1 + 16 + 1 + 18 * maxlayer + 16));
+	    cudaMemcpy(k_device, keys.k, N * N * (1 + 16 + 1 + 18 * maxlayer + 16), cudaMemcpyHostToDevice);
+
+	    bool* r_msb_device;
+	    cudaMalloc(&r_msb_device, N * N * sizeof(bool));
+	    cudaMemcpy(r_msb_device, keys.r_msb, N * N * sizeof(bool), cudaMemcpyHostToDevice);
+
+        auto start = emp::clock_start();
+        bool* rank_res;
+        cudaMallocManaged(&rank_res, N * N * sizeof(bool));
+
+        // map value to matrix
+        Map<MatrixRowMajor> value_map(value, 1, N);
+        MatrixRowMajor value_mat = value_map.replicate(N, 1);
+        MatrixRowMajor value_mat_transpose = value_mat.transpose();
+        value_mat = value_mat - value_mat_transpose;
+        Map<MatrixRowMajor> random_map(keys.random, N, N);
+        MatrixRowMajor t = value_mat - random_map;
+        GMW_A->open_vec_2PC(t.data(), t.data(), t.size());
+        cudamsbeval_buf(rank_res,k_device,t.data(),r_msb_device, N*N, keys.maxlayer, party);
+
+        int64_t* rank_res_int64 = new int64_t[N*N];
+        GMW_B->open_vec_2PC(rank_res_int64, rank_res, N*N);
+
+        Map<MatrixRowMajor> rank_res_map(rank_res_int64, N, N);
+
+        int64_t* rank = new int64_t[N];
+        for (int i = 0; i < N; ++i) {
+            rank[i] = rank_res_map.row(i).sum();
+            res[rank[i]] = value[i];
+        }
+        double timeused = emp::time_from(start);
+        std::cout << "Rank Sort Time taken: " << timeused / (1000) << " ms" << std::endl;
+
+        cudaFree(k_device);
+        cudaFree(r_msb_device);
+        cudaFree(rank_res);
+        delete[] rank_res_int64;
+        delete[] rank;
+    }
+
+    void cuda_ranksort(int64_t *res, U_MSB_Keys keys, int64_t *value, int N, int party){
+
+        auto start = emp::clock_start();
+
+        bool* rank_res;
+        cudaMallocManaged(&rank_res, N * N * sizeof(bool));
+        // map value to matrix
+        Map<MatrixRowMajor> value_map(value, 1, N);
+        MatrixRowMajor value_mat = value_map.replicate(N, 1);
+        MatrixRowMajor value_mat_transpose = value_mat.transpose();
+        value_mat = value_mat - value_mat_transpose;
+        Map<MatrixRowMajor> random_map(keys.random, N, N);
+        MatrixRowMajor t = value_mat - random_map;
+        GMW_A->open_vec_2PC(t.data(), t.data(), t.size());
+        cudamsbeval_buf(rank_res,keys.k,t.data(),keys.r_msb, N*N, keys.maxlayer, party);
+
+        int64_t* rank_res_int64 = new int64_t[N*N];
+        GMW_B->open_vec_2PC(rank_res_int64, rank_res, N*N);
+
+        Map<MatrixRowMajor> rank_res_map(rank_res_int64, N, N);
+
+        //Todo: Move to GPU
+        int64_t* rank = new int64_t[N];
+        for (int i = 0; i < N; ++i) {
+            rank[i] = rank_res_map.row(i).sum();
+            res[rank[i]] = value[i];
+        }
+        double timeused = emp::time_from(start);
+        std::cout << "Rank Sort Time taken: " << timeused / (1000) << " ms" << std::endl;
+
+        cudaFree(rank_res);
+        delete[] rank_res_int64;
+        delete[] rank;
+
+
+
+    }
+
+    void cuda_ranksort(vector<int64_t>& res, U_MSB_Keys keys, vector<int64_t> value, int party){
+
+        // auto start = emp::clock_start();
+        size_t N = value.size();
+        bool* rank_res;
+        cudaMallocManaged(&rank_res, N * N * sizeof(bool));
+        // map value to matrix
+        Map<MatrixRowMajor> value_map(value.data(), 1, N);
+        MatrixRowMajor value_mat = value_map.replicate(N, 1);
+        MatrixRowMajor value_mat_transpose = value_mat.transpose();
+        value_mat = value_mat - value_mat_transpose;
+        Map<MatrixRowMajor> random_map(keys.random, N, N);
+        MatrixRowMajor t = value_mat - random_map;
+        GMW_A->open_vec_2PC(t.data(), t.data(), t.size());
+        cudamsbeval_buf(rank_res,keys.k,t.data(),keys.r_msb, N*N, keys.maxlayer, party);
+
+        int64_t* rank_res_int64 = new int64_t[N*N];
+        GMW_B->open_vec_2PC(rank_res_int64, rank_res, N*N);
+
+        Map<MatrixRowMajor> rank_res_map(rank_res_int64, N, N);
+
+        //Todo: Move to GPU
+        int64_t* rank = new int64_t[N];
+        for (size_t i = 0; i < N; ++i) {
+            rank[i] = rank_res_map.row(i).sum();
+            res[rank[i]] = value[i];
+        }
+        // double timeused = emp::time_from(start);
+        // std::cout << "Rank Sort Time taken: " << timeused / (1000) << " ms" << std::endl;
+
+        cudaFree(rank_res);
+        delete[] rank_res_int64;
+        delete[] rank;
+
+
+
+    }
+
+    void cuda_TopK(vector<int64_t>& result, U_MSB_Keys keys, vector<int64_t> input, int K, int maxIterations, int party) {
+
+        vector<int64_t> arr(input);
+        int n = arr.size();
+        int k = maxIterations;
+        
+        while (k > 0) {
+            // auto start = emp::clock_start();
+            // printf("K: %d\n", K);
+            // printf("input size: %ld\n", arr.size());
+
+            int p = std::ceil(std::pow(n, 1.0 / k));
+            p = std::min(p, n); // 防止 pivots 数量超过数组大小
+            // printf("p: %d\n", p);
+
+            // 选择 pivots
+            vector<int64_t> pivots;
+            vector<int64_t> pivots_sorted(p-1);
+
+            pivots.insert(pivots.end(), arr.end()-(p-1), arr.end());
+            cuda_ranksort(pivots_sorted, keys, pivots, party);
+
+            // 根据 pivots 对数组进行分区
+            vector<vector<int64_t>> blocks(p);  
+            TopK_Partition(blocks, keys, arr, pivots_sorted, party);
+
+            // double timeused = emp::time_from(start);
+            // std::cout << "TopK Partition Time taken: " << timeused / (1000) << " ms" << std::endl;
+            // std::vector<std::vector<int>> blocks = partition(arr, pivots);
+            // printf("blocks: ");
+            // for(size_t i = 0; i < blocks.size(); i++){
+            //     printf("[");
+            //     printf("%ld", blocks[i].size());
+            //     printf("] ");
+            // }
+            // printf("\n");
+
+            // 统计区块大小，找到包含 TopK 的区块
+            size_t total = 0;
+            arr.clear();
+            for (size_t i = 0; i < blocks.size(); i++) {
+                if ((total + blocks[i].size()) >= (size_t)K) {
+                    arr.insert(arr.end(), blocks[i].begin(), blocks[i].end());
+                    break;
+                }
+            result.insert(result.end(), blocks[i].begin(), blocks[i].end());
+            total += blocks[i].size();
+            }
+        // 更新 K 和 arr
+            K -= total;
+            n = arr.size();
+
+        // 如果当前区块大小小于等于 K，直接返回
+            if (n <= K) {
+                vector<int64_t> arr_sorted(arr.size());
+                cuda_ranksort(arr_sorted, keys, arr, party);
+                arr_sorted.resize(K); // 保留前 K 个元素
+                result.insert(result.end(), arr_sorted.begin(), arr_sorted.end());
+                return;
+            }
+
+        // 迭代次数减少
+            k--;
+            // double timeused = emp::time_from(start);
+            // std::cout << "TopK internal Time taken: " << timeused / (1000) << " ms" << std::endl;
+        }
+       
+        // 最后一步：排序并返回前 K 个元素
+        // printf("result size: %ld\n", arr.size());
+        vector<int64_t> arr_sorted(arr.size());
+        cuda_ranksort(arr_sorted, keys, arr, party);
+        result.insert(result.end(), arr_sorted.end()-K, arr_sorted.end());
+    }
+
+    void cuda_Max(int64_t &result, U_MSB_Keys keys, vector<int64_t> input, int party){
+        vector<int64_t> arr(input);
+        int n = arr.size();
+        // bool* rank_res;
+        // cudaMallocManaged(&rank_res, n * sizeof(bool));
+
+        while(n > 1){
+            n = arr.size() / 2;
+            
+            Map<MatrixRowMajor> arr1_map(arr.data(), 1, n);
+            Map<MatrixRowMajor> arr2_map(arr.data() + n, 1, n);
+            // cout << "arr1_map: \n" << arr1_map << endl;
+            // cout << "arr2_map: \n" << arr2_map << endl;
+            MatrixRowMajor tmp = arr1_map - arr2_map;
+            // cout << "arr1_map - arr2_map: \n" << tmp << endl;
+            Map<MatrixRowMajor> random_map(keys.random, 1, n);
+            // cout << "random_map: \n" << random_map << endl;
+            MatrixRowMajor t = tmp - random_map;
+            GMW_A->open_vec_2PC(t.data(), t.data(), t.size());
+            bool* rank_res = new bool[n];
+            cudamsbeval_buf(rank_res,keys.k,t.data(),keys.r_msb, n, keys.maxlayer, party);
+            int64_t* rank_res_int64 = new int64_t[n];
+            memset(rank_res_int64, 0, n * sizeof(int64_t));
+            GMW_B->open_vec_2PC(rank_res_int64, rank_res, n);
+            Map<MatrixRowMajor> rank_res_map(rank_res_int64, 1, n);
+            // cout << "rank_res_map: \n" << rank_res_map << endl;
+ 
+            vector<int64_t> arr_new(n);
+            Map<MatrixRowMajor> arr_new_map(arr_new.data(), 1, n);
+            arr_new_map = arr_new_map.array() + arr2_map.array() * rank_res_map.array() + arr1_map.array() * (1 - rank_res_map.array());
+            // cout<< "arr_new_map: \n" << arr_new_map << endl;
+            if(arr.size() % 2 == 1){
+                int64_t last_value = arr[arr.size()-1];
+                arr_new.push_back(last_value);
+            }
+            // cout<< "arr_new_map: \n" << arr_new_map << endl;
+            // cout << "arr_new: \n";
+            // for(int i = 0; i < arr_new.size(); i++){
+            //     cout << arr_new[i] << " ";
+            // }
+            // cout << endl;
+            arr = arr_new;
+            n = arr.size();
+            delete[] rank_res_int64;
+            delete[] rank_res;
+            
+        }
+        
+        result = arr[0];
+        
+    }
+
+    void cuda_TopK_CipherGPT(vector<int64_t>& result, U_MSB_Keys keys, vector<int64_t> input, int K, int party){
+        vector<int64_t> arr(input);
+        int n = arr.size();
+
+        while (K > 0)
+        {
+            // auto start = emp::clock_start();
+            
+            vector<int64_t> pivots;
+            pivots.insert(pivots.end(), arr.end()-1, arr.end());
+            // delete last elements
+            arr.pop_back();
+            vector<vector<int64_t>> blocks(pivots.size() + 1); 
+            TopK_Partition(blocks, keys, arr, pivots, party);
+
+            size_t total = 0;
+            arr.clear();
+            for (size_t i = blocks.size() - 1; i >= 0; i--) {
+                if (total + blocks[i].size() >= K) {
+                    arr.insert(arr.end(), blocks[i].begin(), blocks[i].end());
+                    break;
+                }
+                result.insert(result.end(), blocks[i].begin(), blocks[i].end());
+                result.insert(result.end(), pivots.begin(), pivots.end());
+                total += blocks[i].size() + pivots.size();
+            }
+            K -= total;
+            n = arr.size();
+
+            // 如果当前区块大小小于等于 K，直接返回
+            if (n <= K) {
+                vector<int64_t> arr_sorted(arr.size());
+                cuda_ranksort(arr_sorted, keys, arr, party);
+                arr_sorted.resize(K); // 保留前 K 个元素
+                result.insert(result.end(), arr_sorted.begin(), arr_sorted.end());
+                return;
+            }
+
+            // double timeused = emp::time_from(start);
+            // std::cout << "TopK internal Time taken: " << timeused / (1000) << " ms" << std::endl;
+        }
+
+        // 最后一步：排序并返回前 K 个元素
+        // printf("result size: %ld\n", arr.size());
+        vector<int64_t> arr_sorted(arr.size());
+        cuda_ranksort(arr_sorted, keys, arr, party);
+        result.insert(result.end(), arr_sorted.end()-K, arr_sorted.end());
+
+    }
+
+    private:
+
+    void TopK_Partition(vector<vector<int64_t>> &blocks, U_MSB_Keys keys, vector<int64_t> arr, vector<int64_t> pivots, int party) {
+
+        size_t N = arr.size() * pivots.size();
+        bool* rank_res;
+        cudaMallocManaged(&rank_res, N * sizeof(bool));
+
+        Map<MatrixRowMajor> value_map(arr.data(), 1, arr.size());
+        MatrixRowMajor value_mat = value_map.replicate(pivots.size(), 1);
+        Map<Vector<int64_t,Dynamic>> pivots_map(pivots.data(), pivots.size());
+        value_mat = value_mat.colwise() - pivots_map;
+        // std::cout << "pivots_map: \n" << pivots_map << std::endl;
+        // std::cout << "value_mat: \n" << value_mat << std::endl;
+
+        Map<MatrixRowMajor> random_map(keys.random, pivots.size(), arr.size());
+        MatrixRowMajor t = value_mat - random_map;
+        GMW_A->open_vec_2PC(t.data(), t.data(), t.size());
+
+
+        // auto start2 = emp::clock_start();
+        cudamsbeval_buf(rank_res,keys.k,t.data(),keys.r_msb, N, keys.maxlayer, party);
+        // double timeused2 = emp::time_from(start2);
+        // std::cout << "TopK Partition MSB Time taken: " << timeused2 / (1000) << " ms" << std::endl;
+
+
+        int64_t* rank_res_int64 = new int64_t[N];
+        GMW_B->open_vec_2PC(rank_res_int64, rank_res, N);
+
+        Map<MatrixRowMajor> rank_res_map(rank_res_int64, pivots.size(), arr.size());
+        MatrixRowMajor rank_result = rank_res_map.colwise().sum();
+        // std::cout << "rank_result: \n" << rank_result << std::endl;
+
+        for(size_t i = 0; i < arr.size(); i++){
+            blocks[rank_result.data()[i]].push_back(arr[i]);
+        }
+        
+
+        cudaFree(rank_res);
+        delete[] rank_res_int64;
     }
 };
 

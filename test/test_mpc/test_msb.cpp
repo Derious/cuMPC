@@ -26,8 +26,8 @@ int main(int argc, char** argv) {
     // double total_time = 0;
 
     
-    uint64_t N = 128*3072;
-    uint64_t bufsize = 256*3072;
+    uint64_t N = 50257;
+    uint64_t bufsize = 50257;
     cout << "N: " << N << endl;
     MSB_Keys keys(bufsize);
     cudaWarmup(1024 * 1024, party);

@@ -7,11 +7,11 @@ CUDA_DEFINES = -DEMP_CIRCUIT_PATH=/usr/local/include/emp-tool/circuits/files/
 
 CUDA_INCLUDES = -I/home/user/zck/Document/MPC_CUDA/GPT_cuda -I/usr/local/include/eigen3
 
-CUDA_FLAGS =  -Wno-deprecated-gpu-targets --expt-relaxed-constexpr -diag-suppress=20012 -O3 -DNDEBUG --generate-code=arch=compute_70,code=[compute_70,sm_70] --generate-code=arch=compute_75,code=[compute_75,sm_75]
+CUDA_FLAGS =  -Wno-deprecated-gpu-targets --expt-relaxed-constexpr -diag-suppress=20012 -O3 -DNDEBUG --generate-code=arch=compute_70,code=[compute_70,sm_70] --generate-code=arch=compute_75,code=[compute_75,sm_75] -std=c++17
 
 CXX_DEFINES = -DEMP_CIRCUIT_PATH=/usr/local/include/emp-tool/circuits/files/
 
 CXX_INCLUDES = -I/home/user/zck/Document/MPC_CUDA/GPT_cuda -I/usr/local/include/eigen3
 
-CXX_FLAGS =   -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -std=c++11 -O3 -O3 -DNDEBUG
+CXX_FLAGS =   -pthread -Wall -funroll-loops -Wno-ignored-attributes -Wno-unused-result -march=native -maes -mrdseed -std=c++11 -O3 -O3 -DNDEBUG -std=gnu++17
 

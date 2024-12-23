@@ -255,6 +255,20 @@ test_test_exp/fast:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_exp.dir/build.make test/test_CORE/CMakeFiles/test_test_exp.dir/build
 .PHONY : test_test_exp/fast
 
+# Convenience name for target.
+test/test_CORE/CMakeFiles/test_test_topk.dir/rule:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/test_CORE/CMakeFiles/test_test_topk.dir/rule
+.PHONY : test/test_CORE/CMakeFiles/test_test_topk.dir/rule
+
+# Convenience name for target.
+test_test_topk: test/test_CORE/CMakeFiles/test_test_topk.dir/rule
+.PHONY : test_test_topk
+
+# fast build rule for target.
+test_test_topk/fast:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/build
+.PHONY : test_test_topk/fast
+
 __/__/mpc_cuda/fss_cuda.o: __/__/mpc_cuda/fss_cuda.cu.o
 .PHONY : __/__/mpc_cuda/fss_cuda.o
 
@@ -266,6 +280,7 @@ __/__/mpc_cuda/fss_cuda.cu.o:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/fss_cuda.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/fss_cuda.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_exp.dir/build.make test/test_CORE/CMakeFiles/test_test_exp.dir/__/__/mpc_cuda/fss_cuda.cu.o
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/__/__/mpc_cuda/fss_cuda.cu.o
 .PHONY : __/__/mpc_cuda/fss_cuda.cu.o
 
 __/__/mpc_cuda/fss_cuda.i: __/__/mpc_cuda/fss_cuda.cu.i
@@ -279,6 +294,7 @@ __/__/mpc_cuda/fss_cuda.cu.i:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/fss_cuda.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/fss_cuda.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_exp.dir/build.make test/test_CORE/CMakeFiles/test_test_exp.dir/__/__/mpc_cuda/fss_cuda.cu.i
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/__/__/mpc_cuda/fss_cuda.cu.i
 .PHONY : __/__/mpc_cuda/fss_cuda.cu.i
 
 __/__/mpc_cuda/fss_cuda.s: __/__/mpc_cuda/fss_cuda.cu.s
@@ -292,6 +308,7 @@ __/__/mpc_cuda/fss_cuda.cu.s:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/fss_cuda.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/fss_cuda.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_exp.dir/build.make test/test_CORE/CMakeFiles/test_test_exp.dir/__/__/mpc_cuda/fss_cuda.cu.s
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/__/__/mpc_cuda/fss_cuda.cu.s
 .PHONY : __/__/mpc_cuda/fss_cuda.cu.s
 
 __/__/mpc_cuda/mpc_core.o: __/__/mpc_cuda/mpc_core.cu.o
@@ -305,6 +322,7 @@ __/__/mpc_cuda/mpc_core.cu.o:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/mpc_core.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/mpc_core.cu.o
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_exp.dir/build.make test/test_CORE/CMakeFiles/test_test_exp.dir/__/__/mpc_cuda/mpc_core.cu.o
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/__/__/mpc_cuda/mpc_core.cu.o
 .PHONY : __/__/mpc_cuda/mpc_core.cu.o
 
 __/__/mpc_cuda/mpc_core.i: __/__/mpc_cuda/mpc_core.cu.i
@@ -318,6 +336,7 @@ __/__/mpc_cuda/mpc_core.cu.i:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/mpc_core.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/mpc_core.cu.i
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_exp.dir/build.make test/test_CORE/CMakeFiles/test_test_exp.dir/__/__/mpc_cuda/mpc_core.cu.i
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/__/__/mpc_cuda/mpc_core.cu.i
 .PHONY : __/__/mpc_cuda/mpc_core.cu.i
 
 __/__/mpc_cuda/mpc_core.s: __/__/mpc_cuda/mpc_core.cu.s
@@ -331,6 +350,7 @@ __/__/mpc_cuda/mpc_core.cu.s:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_fss.dir/build.make test/test_CORE/CMakeFiles/test_test_fss.dir/__/__/mpc_cuda/mpc_core.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_lut.dir/build.make test/test_CORE/CMakeFiles/test_test_lut.dir/__/__/mpc_cuda/mpc_core.cu.s
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_exp.dir/build.make test/test_CORE/CMakeFiles/test_test_exp.dir/__/__/mpc_cuda/mpc_core.cu.s
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/__/__/mpc_cuda/mpc_core.cu.s
 .PHONY : __/__/mpc_cuda/mpc_core.cu.s
 
 test_communication.o: test_communication.cpp.o
@@ -477,6 +497,30 @@ test_sort.cpp.s:
 	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_sort.dir/build.make test/test_CORE/CMakeFiles/test_test_sort.dir/test_sort.cpp.s
 .PHONY : test_sort.cpp.s
 
+test_topk.o: test_topk.cpp.o
+.PHONY : test_topk.o
+
+# target to build an object file
+test_topk.cpp.o:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/test_topk.cpp.o
+.PHONY : test_topk.cpp.o
+
+test_topk.i: test_topk.cpp.i
+.PHONY : test_topk.i
+
+# target to preprocess a source file
+test_topk.cpp.i:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/test_topk.cpp.i
+.PHONY : test_topk.cpp.i
+
+test_topk.s: test_topk.cpp.s
+.PHONY : test_topk.s
+
+# target to generate assembly for a file
+test_topk.cpp.s:
+	cd /home/user/zck/Document/MPC_CUDA/GPT_cuda/build && $(MAKE) $(MAKESILENT) -f test/test_CORE/CMakeFiles/test_test_topk.dir/build.make test/test_CORE/CMakeFiles/test_test_topk.dir/test_topk.cpp.s
+.PHONY : test_topk.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -496,6 +540,7 @@ help:
 	@echo "... test_test_invert"
 	@echo "... test_test_lut"
 	@echo "... test_test_sort"
+	@echo "... test_test_topk"
 	@echo "... __/__/mpc_cuda/fss_cuda.o"
 	@echo "... __/__/mpc_cuda/fss_cuda.i"
 	@echo "... __/__/mpc_cuda/fss_cuda.s"
@@ -520,6 +565,9 @@ help:
 	@echo "... test_sort.o"
 	@echo "... test_sort.i"
 	@echo "... test_sort.s"
+	@echo "... test_topk.o"
+	@echo "... test_topk.i"
+	@echo "... test_topk.s"
 .PHONY : help
 
 

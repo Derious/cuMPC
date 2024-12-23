@@ -2,6 +2,8 @@ cmake_minimum_required (VERSION 2.8.11)
 project (gpt-cuda LANGUAGES C CXX CUDA)
 set(NAME "gpt-cuda")
 
+set(CMAKE_CXX_STANDARD 17)          # 使用 C++17 标准
+set(CMAKE_CXX_STANDARD_REQUIRED ON) # 必须使用指定标准
 set(CMAKE_CXX_COMPILER_WORKS TRUE)
 set(CMAKE_C_COMPILER_WORKS TRUE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
