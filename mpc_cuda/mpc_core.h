@@ -685,12 +685,6 @@ class cuda_mpc_core {
                 int64_t last_value = arr[arr.size()-1];
                 arr_new.push_back(last_value);
             }
-            // cout<< "arr_new_map: \n" << arr_new_map << endl;
-            // cout << "arr_new: \n";
-            // for(int i = 0; i < arr_new.size(); i++){
-            //     cout << arr_new[i] << " ";
-            // }
-            // cout << endl;
             arr = arr_new;
             n = arr.size();
             delete[] rank_res_int64;

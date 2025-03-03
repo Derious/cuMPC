@@ -1,0 +1,6 @@
+[submodule "dependence/emp-tool"]
+	path = dependence/emp-tool
+	url = https://github.com/emp-toolkit/emp-tool.git
+[submodule "dependence/emp-ot"]
+	path = dependence/emp-ot
+	url = https://github.com/emp-toolkit/emp-ot.git

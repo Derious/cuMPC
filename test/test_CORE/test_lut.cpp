@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include <random>
+#include <chrono>
 
 // 量化参数（由Python计算得出）
 const float SCALE = 34.011650f;  // 替换为实际的scale值
@@ -189,7 +190,25 @@ void verify_gelu_lut() {
 }
 
 int main() {
-    verify_gelu_lut();
+    // verify_gelu_lut();
+    int64_t size = (int64_t)0xFFFFFFFF;
+    int64_t res = 0;
+    auto start = std::chrono::high_resolution_clock::now();
+    int64_t i = 0;
+    // #pragma omp parallel for reduction(+:res)
+    // for(int64_t j = 0; j < 0xF; j++) {
+    for (i = 0; i < size; i++)
+        {
+            res += size;
+            /* code */
+        }
+    // }
+    printf("res: %lx\n", res);
+    printf("i: %lx\n", i);
+    // std::cout << res << std::endl;
+    auto end = std::chrono::high_resolution_clock::now();
+    std::cout << "Time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << "us" << std::endl;
+    
     return 0;
 }
 
