@@ -4,6 +4,7 @@
 #include "uint128_type.h"
 #include <emp-tool/emp-tool.h>
 #include <openssl/rand.h>
+using namespace emp;
 
 class AES_Generator {
 private:

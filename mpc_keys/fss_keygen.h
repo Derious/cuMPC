@@ -7,271 +7,140 @@
 #include <cstring>
 #include <iostream>
 
-// select vector table from 0 to 127 
+// select vector table from 0 to 127
 extern const uint128_t select_vector_table[128] = {
-    uint128_t(0x8000000000000000ULL, 0x0000000000000000ULL), // 0
-    uint128_t(0x4000000000000000ULL, 0x0000000000000000ULL), // 1
-    uint128_t(0x2000000000000000ULL, 0x0000000000000000ULL), // 2
-    uint128_t(0x1000000000000000ULL, 0x0000000000000000ULL), // 3
-    uint128_t(0x0800000000000000ULL, 0x0000000000000000ULL), // 4
-    uint128_t(0x0400000000000000ULL, 0x0000000000000000ULL), // 5
-    uint128_t(0x0200000000000000ULL, 0x0000000000000000ULL), // 6
-    uint128_t(0x0100000000000000ULL, 0x0000000000000000ULL), // 7
-    uint128_t(0x0080000000000000ULL, 0x0000000000000000ULL), // 8
-    uint128_t(0x0040000000000000ULL, 0x0000000000000000ULL), // 9
-    uint128_t(0x0020000000000000ULL, 0x0000000000000000ULL), // 10
-    uint128_t(0x0010000000000000ULL, 0x0000000000000000ULL), // 11
-    uint128_t(0x0008000000000000ULL, 0x0000000000000000ULL), // 12
-    uint128_t(0x0004000000000000ULL, 0x0000000000000000ULL), // 13
-    uint128_t(0x0002000000000000ULL, 0x0000000000000000ULL), // 14
-    uint128_t(0x0001000000000000ULL, 0x0000000000000000ULL), // 15
-    uint128_t(0x0000800000000000ULL, 0x0000000000000000ULL), // 16
-    uint128_t(0x0000400000000000ULL, 0x0000000000000000ULL), // 17
-    uint128_t(0x0000200000000000ULL, 0x0000000000000000ULL), // 18
-    uint128_t(0x0000100000000000ULL, 0x0000000000000000ULL), // 19
-    uint128_t(0x0000080000000000ULL, 0x0000000000000000ULL), // 20
-    uint128_t(0x0000040000000000ULL, 0x0000000000000000ULL), // 21
-    uint128_t(0x0000020000000000ULL, 0x0000000000000000ULL), // 22
-    uint128_t(0x0000010000000000ULL, 0x0000000000000000ULL), // 23
-    uint128_t(0x0000008000000000ULL, 0x0000000000000000ULL), // 24
-    uint128_t(0x0000004000000000ULL, 0x0000000000000000ULL), // 25
-    uint128_t(0x0000002000000000ULL, 0x0000000000000000ULL), // 26
-    uint128_t(0x0000001000000000ULL, 0x0000000000000000ULL), // 27
-    uint128_t(0x0000000800000000ULL, 0x0000000000000000ULL), // 28
-    uint128_t(0x0000000400000000ULL, 0x0000000000000000ULL), // 29
-    uint128_t(0x0000000200000000ULL, 0x0000000000000000ULL), // 30
-    uint128_t(0x0000000100000000ULL, 0x0000000000000000ULL), // 31
-    uint128_t(0x0000000080000000ULL, 0x0000000000000000ULL), // 32
-    uint128_t(0x0000000040000000ULL, 0x0000000000000000ULL), // 33
-    uint128_t(0x0000000020000000ULL, 0x0000000000000000ULL), // 34
-    uint128_t(0x0000000010000000ULL, 0x0000000000000000ULL), // 35
-    uint128_t(0x0000000008000000ULL, 0x0000000000000000ULL), // 36
-    uint128_t(0x0000000004000000ULL, 0x0000000000000000ULL), // 37
-    uint128_t(0x0000000002000000ULL, 0x0000000000000000ULL), // 38
-    uint128_t(0x0000000001000000ULL, 0x0000000000000000ULL), // 39
-    uint128_t(0x0000000000800000ULL, 0x0000000000000000ULL), // 40
-    uint128_t(0x0000000000400000ULL, 0x0000000000000000ULL), // 41
-    uint128_t(0x0000000000200000ULL, 0x0000000000000000ULL), // 42
-    uint128_t(0x0000000000100000ULL, 0x0000000000000000ULL), // 43
-    uint128_t(0x0000000000080000ULL, 0x0000000000000000ULL), // 44
-    uint128_t(0x0000000000040000ULL, 0x0000000000000000ULL), // 45
-    uint128_t(0x0000000000020000ULL, 0x0000000000000000ULL), // 46
-    uint128_t(0x0000000000010000ULL, 0x0000000000000000ULL), // 47
-    uint128_t(0x0000000000008000ULL, 0x0000000000000000ULL), // 48
-    uint128_t(0x0000000000004000ULL, 0x0000000000000000ULL), // 49
-    uint128_t(0x0000000000002000ULL, 0x0000000000000000ULL), // 50
-    uint128_t(0x0000000000001000ULL, 0x0000000000000000ULL), // 51
-    uint128_t(0x0000000000000800ULL, 0x0000000000000000ULL), // 52
-    uint128_t(0x0000000000000400ULL, 0x0000000000000000ULL), // 53
-    uint128_t(0x0000000000000200ULL, 0x0000000000000000ULL), // 54
-    uint128_t(0x0000000000000100ULL, 0x0000000000000000ULL), // 55
-    uint128_t(0x0000000000000080ULL, 0x0000000000000000ULL), // 56
-    uint128_t(0x0000000000000040ULL, 0x0000000000000000ULL), // 57
-    uint128_t(0x0000000000000020ULL, 0x0000000000000000ULL), // 58
-    uint128_t(0x0000000000000010ULL, 0x0000000000000000ULL), // 59
-    uint128_t(0x0000000000000008ULL, 0x0000000000000000ULL), // 60
-    uint128_t(0x0000000000000004ULL, 0x0000000000000000ULL), // 61
-    uint128_t(0x0000000000000002ULL, 0x0000000000000000ULL), // 62
-    uint128_t(0x0000000000000001ULL, 0x0000000000000000ULL), // 63
-    uint128_t(0x0000000000000000ULL, 0x8000000000000000ULL), // 64
-    uint128_t(0x0000000000000000ULL, 0x4000000000000000ULL), // 65
-    uint128_t(0x0000000000000000ULL, 0x2000000000000000ULL), // 66
-    uint128_t(0x0000000000000000ULL, 0x1000000000000000ULL), // 67
-    uint128_t(0x0000000000000000ULL, 0x0800000000000000ULL), // 68
-    uint128_t(0x0000000000000000ULL, 0x0400000000000000ULL), // 69
-    uint128_t(0x0000000000000000ULL, 0x0200000000000000ULL), // 70
-    uint128_t(0x0000000000000000ULL, 0x0100000000000000ULL), // 71
-    uint128_t(0x0000000000000000ULL, 0x0080000000000000ULL), // 72
-    uint128_t(0x0000000000000000ULL, 0x0040000000000000ULL), // 73
-    uint128_t(0x0000000000000000ULL, 0x0020000000000000ULL), // 74
-    uint128_t(0x0000000000000000ULL, 0x0010000000000000ULL), // 75
-    uint128_t(0x0000000000000000ULL, 0x0008000000000000ULL), // 76
-    uint128_t(0x0000000000000000ULL, 0x0004000000000000ULL), // 77
-    uint128_t(0x0000000000000000ULL, 0x0002000000000000ULL), // 78
-    uint128_t(0x0000000000000000ULL, 0x0001000000000000ULL), // 79
-    uint128_t(0x0000000000000000ULL, 0x0000800000000000ULL), // 80
-    uint128_t(0x0000000000000000ULL, 0x0000400000000000ULL), // 81
-    uint128_t(0x0000000000000000ULL, 0x0000200000000000ULL), // 82
-    uint128_t(0x0000000000000000ULL, 0x0000100000000000ULL), // 83
-    uint128_t(0x0000000000000000ULL, 0x0000080000000000ULL), // 84
-    uint128_t(0x0000000000000000ULL, 0x0000040000000000ULL), // 85
-    uint128_t(0x0000000000000000ULL, 0x0000020000000000ULL), // 86
-    uint128_t(0x0000000000000000ULL, 0x0000010000000000ULL), // 87
-    uint128_t(0x0000000000000000ULL, 0x0000008000000000ULL), // 88
-    uint128_t(0x0000000000000000ULL, 0x0000004000000000ULL), // 89
-    uint128_t(0x0000000000000000ULL, 0x0000002000000000ULL), // 90
-    uint128_t(0x0000000000000000ULL, 0x0000001000000000ULL), // 91
-    uint128_t(0x0000000000000000ULL, 0x0000000800000000ULL), // 92
-    uint128_t(0x0000000000000000ULL, 0x0000000400000000ULL), // 93
-    uint128_t(0x0000000000000000ULL, 0x0000000200000000ULL), // 94
-    uint128_t(0x0000000000000000ULL, 0x0000000100000000ULL), // 95
-    uint128_t(0x0000000000000000ULL, 0x0000000080000000ULL), // 96
-    uint128_t(0x0000000000000000ULL, 0x0000000040000000ULL), // 97
-    uint128_t(0x0000000000000000ULL, 0x0000000020000000ULL), // 98
-    uint128_t(0x0000000000000000ULL, 0x0000000010000000ULL), // 99
-    uint128_t(0x0000000000000000ULL, 0x0000000008000000ULL), // 100
-    uint128_t(0x0000000000000000ULL, 0x0000000004000000ULL), // 101
-    uint128_t(0x0000000000000000ULL, 0x0000000002000000ULL), // 102
-    uint128_t(0x0000000000000000ULL, 0x0000000001000000ULL), // 103
-    uint128_t(0x0000000000000000ULL, 0x0000000000800000ULL), // 104
-    uint128_t(0x0000000000000000ULL, 0x0000000000400000ULL), // 105
-    uint128_t(0x0000000000000000ULL, 0x0000000000200000ULL), // 106
-    uint128_t(0x0000000000000000ULL, 0x0000000000100000ULL), // 107
-    uint128_t(0x0000000000000000ULL, 0x0000000000080000ULL), // 108
-    uint128_t(0x0000000000000000ULL, 0x0000000000040000ULL), // 109
-    uint128_t(0x0000000000000000ULL, 0x0000000000020000ULL), // 110
-    uint128_t(0x0000000000000000ULL, 0x0000000000010000ULL), // 111
-    uint128_t(0x0000000000000000ULL, 0x0000000000008000ULL), // 112
-    uint128_t(0x0000000000000000ULL, 0x0000000000004000ULL), // 113
-    uint128_t(0x0000000000000000ULL, 0x0000000000002000ULL), // 114
-    uint128_t(0x0000000000000000ULL, 0x0000000000001000ULL), // 115
-    uint128_t(0x0000000000000000ULL, 0x0000000000000800ULL), // 116
-    uint128_t(0x0000000000000000ULL, 0x0000000000000400ULL), // 117
-    uint128_t(0x0000000000000000ULL, 0x0000000000000200ULL), // 118
-    uint128_t(0x0000000000000000ULL, 0x0000000000000100ULL), // 119
-    uint128_t(0x0000000000000000ULL, 0x0000000000000080ULL), // 120
-    uint128_t(0x0000000000000000ULL, 0x0000000000000040ULL), // 121
-    uint128_t(0x0000000000000000ULL, 0x0000000000000020ULL), // 122
-    uint128_t(0x0000000000000000ULL, 0x0000000000000010ULL), // 123
-    uint128_t(0x0000000000000000ULL, 0x0000000000000008ULL), // 124
-    uint128_t(0x0000000000000000ULL, 0x0000000000000004ULL), // 125
-    uint128_t(0x0000000000000000ULL, 0x0000000000000002ULL), // 126
-    uint128_t(0x0000000000000000ULL, 0x0000000000000001ULL) // 127
+	uint128_t(0x8000000000000000ULL, 0x0000000000000000ULL), // 0
+	uint128_t(0x4000000000000000ULL, 0x0000000000000000ULL), // 1
+	uint128_t(0x2000000000000000ULL, 0x0000000000000000ULL), // 2
+	uint128_t(0x1000000000000000ULL, 0x0000000000000000ULL), // 3
+	uint128_t(0x0800000000000000ULL, 0x0000000000000000ULL), // 4
+	uint128_t(0x0400000000000000ULL, 0x0000000000000000ULL), // 5
+	uint128_t(0x0200000000000000ULL, 0x0000000000000000ULL), // 6
+	uint128_t(0x0100000000000000ULL, 0x0000000000000000ULL), // 7
+	uint128_t(0x0080000000000000ULL, 0x0000000000000000ULL), // 8
+	uint128_t(0x0040000000000000ULL, 0x0000000000000000ULL), // 9
+	uint128_t(0x0020000000000000ULL, 0x0000000000000000ULL), // 10
+	uint128_t(0x0010000000000000ULL, 0x0000000000000000ULL), // 11
+	uint128_t(0x0008000000000000ULL, 0x0000000000000000ULL), // 12
+	uint128_t(0x0004000000000000ULL, 0x0000000000000000ULL), // 13
+	uint128_t(0x0002000000000000ULL, 0x0000000000000000ULL), // 14
+	uint128_t(0x0001000000000000ULL, 0x0000000000000000ULL), // 15
+	uint128_t(0x0000800000000000ULL, 0x0000000000000000ULL), // 16
+	uint128_t(0x0000400000000000ULL, 0x0000000000000000ULL), // 17
+	uint128_t(0x0000200000000000ULL, 0x0000000000000000ULL), // 18
+	uint128_t(0x0000100000000000ULL, 0x0000000000000000ULL), // 19
+	uint128_t(0x0000080000000000ULL, 0x0000000000000000ULL), // 20
+	uint128_t(0x0000040000000000ULL, 0x0000000000000000ULL), // 21
+	uint128_t(0x0000020000000000ULL, 0x0000000000000000ULL), // 22
+	uint128_t(0x0000010000000000ULL, 0x0000000000000000ULL), // 23
+	uint128_t(0x0000008000000000ULL, 0x0000000000000000ULL), // 24
+	uint128_t(0x0000004000000000ULL, 0x0000000000000000ULL), // 25
+	uint128_t(0x0000002000000000ULL, 0x0000000000000000ULL), // 26
+	uint128_t(0x0000001000000000ULL, 0x0000000000000000ULL), // 27
+	uint128_t(0x0000000800000000ULL, 0x0000000000000000ULL), // 28
+	uint128_t(0x0000000400000000ULL, 0x0000000000000000ULL), // 29
+	uint128_t(0x0000000200000000ULL, 0x0000000000000000ULL), // 30
+	uint128_t(0x0000000100000000ULL, 0x0000000000000000ULL), // 31
+	uint128_t(0x0000000080000000ULL, 0x0000000000000000ULL), // 32
+	uint128_t(0x0000000040000000ULL, 0x0000000000000000ULL), // 33
+	uint128_t(0x0000000020000000ULL, 0x0000000000000000ULL), // 34
+	uint128_t(0x0000000010000000ULL, 0x0000000000000000ULL), // 35
+	uint128_t(0x0000000008000000ULL, 0x0000000000000000ULL), // 36
+	uint128_t(0x0000000004000000ULL, 0x0000000000000000ULL), // 37
+	uint128_t(0x0000000002000000ULL, 0x0000000000000000ULL), // 38
+	uint128_t(0x0000000001000000ULL, 0x0000000000000000ULL), // 39
+	uint128_t(0x0000000000800000ULL, 0x0000000000000000ULL), // 40
+	uint128_t(0x0000000000400000ULL, 0x0000000000000000ULL), // 41
+	uint128_t(0x0000000000200000ULL, 0x0000000000000000ULL), // 42
+	uint128_t(0x0000000000100000ULL, 0x0000000000000000ULL), // 43
+	uint128_t(0x0000000000080000ULL, 0x0000000000000000ULL), // 44
+	uint128_t(0x0000000000040000ULL, 0x0000000000000000ULL), // 45
+	uint128_t(0x0000000000020000ULL, 0x0000000000000000ULL), // 46
+	uint128_t(0x0000000000010000ULL, 0x0000000000000000ULL), // 47
+	uint128_t(0x0000000000008000ULL, 0x0000000000000000ULL), // 48
+	uint128_t(0x0000000000004000ULL, 0x0000000000000000ULL), // 49
+	uint128_t(0x0000000000002000ULL, 0x0000000000000000ULL), // 50
+	uint128_t(0x0000000000001000ULL, 0x0000000000000000ULL), // 51
+	uint128_t(0x0000000000000800ULL, 0x0000000000000000ULL), // 52
+	uint128_t(0x0000000000000400ULL, 0x0000000000000000ULL), // 53
+	uint128_t(0x0000000000000200ULL, 0x0000000000000000ULL), // 54
+	uint128_t(0x0000000000000100ULL, 0x0000000000000000ULL), // 55
+	uint128_t(0x0000000000000080ULL, 0x0000000000000000ULL), // 56
+	uint128_t(0x0000000000000040ULL, 0x0000000000000000ULL), // 57
+	uint128_t(0x0000000000000020ULL, 0x0000000000000000ULL), // 58
+	uint128_t(0x0000000000000010ULL, 0x0000000000000000ULL), // 59
+	uint128_t(0x0000000000000008ULL, 0x0000000000000000ULL), // 60
+	uint128_t(0x0000000000000004ULL, 0x0000000000000000ULL), // 61
+	uint128_t(0x0000000000000002ULL, 0x0000000000000000ULL), // 62
+	uint128_t(0x0000000000000001ULL, 0x0000000000000000ULL), // 63
+	uint128_t(0x0000000000000000ULL, 0x8000000000000000ULL), // 64
+	uint128_t(0x0000000000000000ULL, 0x4000000000000000ULL), // 65
+	uint128_t(0x0000000000000000ULL, 0x2000000000000000ULL), // 66
+	uint128_t(0x0000000000000000ULL, 0x1000000000000000ULL), // 67
+	uint128_t(0x0000000000000000ULL, 0x0800000000000000ULL), // 68
+	uint128_t(0x0000000000000000ULL, 0x0400000000000000ULL), // 69
+	uint128_t(0x0000000000000000ULL, 0x0200000000000000ULL), // 70
+	uint128_t(0x0000000000000000ULL, 0x0100000000000000ULL), // 71
+	uint128_t(0x0000000000000000ULL, 0x0080000000000000ULL), // 72
+	uint128_t(0x0000000000000000ULL, 0x0040000000000000ULL), // 73
+	uint128_t(0x0000000000000000ULL, 0x0020000000000000ULL), // 74
+	uint128_t(0x0000000000000000ULL, 0x0010000000000000ULL), // 75
+	uint128_t(0x0000000000000000ULL, 0x0008000000000000ULL), // 76
+	uint128_t(0x0000000000000000ULL, 0x0004000000000000ULL), // 77
+	uint128_t(0x0000000000000000ULL, 0x0002000000000000ULL), // 78
+	uint128_t(0x0000000000000000ULL, 0x0001000000000000ULL), // 79
+	uint128_t(0x0000000000000000ULL, 0x0000800000000000ULL), // 80
+	uint128_t(0x0000000000000000ULL, 0x0000400000000000ULL), // 81
+	uint128_t(0x0000000000000000ULL, 0x0000200000000000ULL), // 82
+	uint128_t(0x0000000000000000ULL, 0x0000100000000000ULL), // 83
+	uint128_t(0x0000000000000000ULL, 0x0000080000000000ULL), // 84
+	uint128_t(0x0000000000000000ULL, 0x0000040000000000ULL), // 85
+	uint128_t(0x0000000000000000ULL, 0x0000020000000000ULL), // 86
+	uint128_t(0x0000000000000000ULL, 0x0000010000000000ULL), // 87
+	uint128_t(0x0000000000000000ULL, 0x0000008000000000ULL), // 88
+	uint128_t(0x0000000000000000ULL, 0x0000004000000000ULL), // 89
+	uint128_t(0x0000000000000000ULL, 0x0000002000000000ULL), // 90
+	uint128_t(0x0000000000000000ULL, 0x0000001000000000ULL), // 91
+	uint128_t(0x0000000000000000ULL, 0x0000000800000000ULL), // 92
+	uint128_t(0x0000000000000000ULL, 0x0000000400000000ULL), // 93
+	uint128_t(0x0000000000000000ULL, 0x0000000200000000ULL), // 94
+	uint128_t(0x0000000000000000ULL, 0x0000000100000000ULL), // 95
+	uint128_t(0x0000000000000000ULL, 0x0000000080000000ULL), // 96
+	uint128_t(0x0000000000000000ULL, 0x0000000040000000ULL), // 97
+	uint128_t(0x0000000000000000ULL, 0x0000000020000000ULL), // 98
+	uint128_t(0x0000000000000000ULL, 0x0000000010000000ULL), // 99
+	uint128_t(0x0000000000000000ULL, 0x0000000008000000ULL), // 100
+	uint128_t(0x0000000000000000ULL, 0x0000000004000000ULL), // 101
+	uint128_t(0x0000000000000000ULL, 0x0000000002000000ULL), // 102
+	uint128_t(0x0000000000000000ULL, 0x0000000001000000ULL), // 103
+	uint128_t(0x0000000000000000ULL, 0x0000000000800000ULL), // 104
+	uint128_t(0x0000000000000000ULL, 0x0000000000400000ULL), // 105
+	uint128_t(0x0000000000000000ULL, 0x0000000000200000ULL), // 106
+	uint128_t(0x0000000000000000ULL, 0x0000000000100000ULL), // 107
+	uint128_t(0x0000000000000000ULL, 0x0000000000080000ULL), // 108
+	uint128_t(0x0000000000000000ULL, 0x0000000000040000ULL), // 109
+	uint128_t(0x0000000000000000ULL, 0x0000000000020000ULL), // 110
+	uint128_t(0x0000000000000000ULL, 0x0000000000010000ULL), // 111
+	uint128_t(0x0000000000000000ULL, 0x0000000000008000ULL), // 112
+	uint128_t(0x0000000000000000ULL, 0x0000000000004000ULL), // 113
+	uint128_t(0x0000000000000000ULL, 0x0000000000002000ULL), // 114
+	uint128_t(0x0000000000000000ULL, 0x0000000000001000ULL), // 115
+	uint128_t(0x0000000000000000ULL, 0x0000000000000800ULL), // 116
+	uint128_t(0x0000000000000000ULL, 0x0000000000000400ULL), // 117
+	uint128_t(0x0000000000000000ULL, 0x0000000000000200ULL), // 118
+	uint128_t(0x0000000000000000ULL, 0x0000000000000100ULL), // 119
+	uint128_t(0x0000000000000000ULL, 0x0000000000000080ULL), // 120
+	uint128_t(0x0000000000000000ULL, 0x0000000000000040ULL), // 121
+	uint128_t(0x0000000000000000ULL, 0x0000000000000020ULL), // 122
+	uint128_t(0x0000000000000000ULL, 0x0000000000000010ULL), // 123
+	uint128_t(0x0000000000000000ULL, 0x0000000000000008ULL), // 124
+	uint128_t(0x0000000000000000ULL, 0x0000000000000004ULL), // 125
+	uint128_t(0x0000000000000000ULL, 0x0000000000000002ULL), // 126
+	uint128_t(0x0000000000000000ULL, 0x0000000000000001ULL)	 // 127
 };
 
-// prefix ones table from 0 to 127 (starting from highest bit)
-extern const uint128_t prefix_ones_table[128] = {
-    uint128_t(0x8000000000000000ULL, 0x0000000000000000ULL), // 0
-    uint128_t(0xc000000000000000ULL, 0x0000000000000000ULL), // 1
-    uint128_t(0xe000000000000000ULL, 0x0000000000000000ULL), // 2
-    uint128_t(0xf000000000000000ULL, 0x0000000000000000ULL), // 3
-    uint128_t(0xf800000000000000ULL, 0x0000000000000000ULL), // 4
-    uint128_t(0xfc00000000000000ULL, 0x0000000000000000ULL), // 5
-    uint128_t(0xfe00000000000000ULL, 0x0000000000000000ULL), // 6
-    uint128_t(0xff00000000000000ULL, 0x0000000000000000ULL), // 7
-    uint128_t(0xff80000000000000ULL, 0x0000000000000000ULL), // 8
-    uint128_t(0xffc0000000000000ULL, 0x0000000000000000ULL), // 9
-    uint128_t(0xffe0000000000000ULL, 0x0000000000000000ULL), // 10
-    uint128_t(0xfff0000000000000ULL, 0x0000000000000000ULL), // 11
-    uint128_t(0xfff8000000000000ULL, 0x0000000000000000ULL), // 12
-    uint128_t(0xfffc000000000000ULL, 0x0000000000000000ULL), // 13
-    uint128_t(0xfffe000000000000ULL, 0x0000000000000000ULL), // 14
-    uint128_t(0xffff000000000000ULL, 0x0000000000000000ULL), // 15
-    uint128_t(0xffff800000000000ULL, 0x0000000000000000ULL), // 16
-    uint128_t(0xffffc00000000000ULL, 0x0000000000000000ULL), // 17
-    uint128_t(0xffffe00000000000ULL, 0x0000000000000000ULL), // 18
-    uint128_t(0xfffff00000000000ULL, 0x0000000000000000ULL), // 19
-    uint128_t(0xfffff80000000000ULL, 0x0000000000000000ULL), // 20
-    uint128_t(0xfffffc0000000000ULL, 0x0000000000000000ULL), // 21
-    uint128_t(0xfffffe0000000000ULL, 0x0000000000000000ULL), // 22
-    uint128_t(0xffffff0000000000ULL, 0x0000000000000000ULL), // 23
-    uint128_t(0xffffff8000000000ULL, 0x0000000000000000ULL), // 24
-    uint128_t(0xffffffc000000000ULL, 0x0000000000000000ULL), // 25
-    uint128_t(0xffffffe000000000ULL, 0x0000000000000000ULL), // 26
-    uint128_t(0xfffffff000000000ULL, 0x0000000000000000ULL), // 27
-    uint128_t(0xfffffff800000000ULL, 0x0000000000000000ULL), // 28
-    uint128_t(0xfffffffc00000000ULL, 0x0000000000000000ULL), // 29
-    uint128_t(0xfffffffe00000000ULL, 0x0000000000000000ULL), // 30
-    uint128_t(0xffffffff00000000ULL, 0x0000000000000000ULL), // 31
-    uint128_t(0xffffffff80000000ULL, 0x0000000000000000ULL), // 32
-    uint128_t(0xffffffffc0000000ULL, 0x0000000000000000ULL), // 33
-    uint128_t(0xffffffffe0000000ULL, 0x0000000000000000ULL), // 34
-    uint128_t(0xfffffffff0000000ULL, 0x0000000000000000ULL), // 35
-    uint128_t(0xfffffffff8000000ULL, 0x0000000000000000ULL), // 36
-    uint128_t(0xfffffffffc000000ULL, 0x0000000000000000ULL), // 37
-    uint128_t(0xfffffffffe000000ULL, 0x0000000000000000ULL), // 38
-    uint128_t(0xffffffffff000000ULL, 0x0000000000000000ULL), // 39
-    uint128_t(0xffffffffff800000ULL, 0x0000000000000000ULL), // 40
-    uint128_t(0xffffffffffc00000ULL, 0x0000000000000000ULL), // 41
-    uint128_t(0xffffffffffe00000ULL, 0x0000000000000000ULL), // 42
-    uint128_t(0xfffffffffff00000ULL, 0x0000000000000000ULL), // 43
-    uint128_t(0xfffffffffff80000ULL, 0x0000000000000000ULL), // 44
-    uint128_t(0xfffffffffffc0000ULL, 0x0000000000000000ULL), // 45
-    uint128_t(0xfffffffffffe0000ULL, 0x0000000000000000ULL), // 46
-    uint128_t(0xffffffffffff0000ULL, 0x0000000000000000ULL), // 47
-    uint128_t(0xffffffffffff8000ULL, 0x0000000000000000ULL), // 48
-    uint128_t(0xffffffffffffc000ULL, 0x0000000000000000ULL), // 49
-    uint128_t(0xffffffffffffe000ULL, 0x0000000000000000ULL), // 50
-    uint128_t(0xfffffffffffff000ULL, 0x0000000000000000ULL), // 51
-    uint128_t(0xfffffffffffff800ULL, 0x0000000000000000ULL), // 52
-    uint128_t(0xfffffffffffffc00ULL, 0x0000000000000000ULL), // 53
-    uint128_t(0xfffffffffffffe00ULL, 0x0000000000000000ULL), // 54
-    uint128_t(0xffffffffffffff00ULL, 0x0000000000000000ULL), // 55
-    uint128_t(0xffffffffffffff80ULL, 0x0000000000000000ULL), // 56
-    uint128_t(0xffffffffffffffc0ULL, 0x0000000000000000ULL), // 57
-    uint128_t(0xffffffffffffffe0ULL, 0x0000000000000000ULL), // 58
-    uint128_t(0xfffffffffffffff0ULL, 0x0000000000000000ULL), // 59
-    uint128_t(0xfffffffffffffff8ULL, 0x0000000000000000ULL), // 60
-    uint128_t(0xfffffffffffffffcULL, 0x0000000000000000ULL), // 61
-    uint128_t(0xfffffffffffffffeULL, 0x0000000000000000ULL), // 62
-    uint128_t(0xffffffffffffffffULL, 0x0000000000000000ULL), // 63
-    uint128_t(0xffffffffffffffffULL, 0x8000000000000000ULL), // 64
-    uint128_t(0xffffffffffffffffULL, 0xc000000000000000ULL), // 65
-    uint128_t(0xffffffffffffffffULL, 0xe000000000000000ULL), // 66
-    uint128_t(0xffffffffffffffffULL, 0xf000000000000000ULL), // 67
-    uint128_t(0xffffffffffffffffULL, 0xf800000000000000ULL), // 68
-    uint128_t(0xffffffffffffffffULL, 0xfc00000000000000ULL), // 69
-    uint128_t(0xffffffffffffffffULL, 0xfe00000000000000ULL), // 70
-    uint128_t(0xffffffffffffffffULL, 0xff00000000000000ULL), // 71
-    uint128_t(0xffffffffffffffffULL, 0xff80000000000000ULL), // 72
-    uint128_t(0xffffffffffffffffULL, 0xffc0000000000000ULL), // 73
-    uint128_t(0xffffffffffffffffULL, 0xffe0000000000000ULL), // 74
-    uint128_t(0xffffffffffffffffULL, 0xfff0000000000000ULL), // 75
-    uint128_t(0xffffffffffffffffULL, 0xfff8000000000000ULL), // 76
-    uint128_t(0xffffffffffffffffULL, 0xfffc000000000000ULL), // 77
-    uint128_t(0xffffffffffffffffULL, 0xfffe000000000000ULL), // 78
-    uint128_t(0xffffffffffffffffULL, 0xffff000000000000ULL), // 79
-    uint128_t(0xffffffffffffffffULL, 0xffff800000000000ULL), // 80
-    uint128_t(0xffffffffffffffffULL, 0xffffc00000000000ULL), // 81
-    uint128_t(0xffffffffffffffffULL, 0xffffe00000000000ULL), // 82
-    uint128_t(0xffffffffffffffffULL, 0xfffff00000000000ULL), // 83
-    uint128_t(0xffffffffffffffffULL, 0xfffff80000000000ULL), // 84
-    uint128_t(0xffffffffffffffffULL, 0xfffffc0000000000ULL), // 85
-    uint128_t(0xffffffffffffffffULL, 0xfffffe0000000000ULL), // 86
-    uint128_t(0xffffffffffffffffULL, 0xffffff0000000000ULL), // 87
-    uint128_t(0xffffffffffffffffULL, 0xffffff8000000000ULL), // 88
-    uint128_t(0xffffffffffffffffULL, 0xffffffc000000000ULL), // 89
-    uint128_t(0xffffffffffffffffULL, 0xffffffe000000000ULL), // 90
-    uint128_t(0xffffffffffffffffULL, 0xfffffff000000000ULL), // 91
-    uint128_t(0xffffffffffffffffULL, 0xfffffff800000000ULL), // 92
-    uint128_t(0xffffffffffffffffULL, 0xfffffffc00000000ULL), // 93
-    uint128_t(0xffffffffffffffffULL, 0xfffffffe00000000ULL), // 94
-    uint128_t(0xffffffffffffffffULL, 0xffffffff00000000ULL), // 95
-    uint128_t(0xffffffffffffffffULL, 0xffffffff80000000ULL), // 96
-    uint128_t(0xffffffffffffffffULL, 0xffffffffc0000000ULL), // 97
-    uint128_t(0xffffffffffffffffULL, 0xffffffffe0000000ULL), // 98
-    uint128_t(0xffffffffffffffffULL, 0xfffffffff0000000ULL), // 99
-    uint128_t(0xffffffffffffffffULL, 0xfffffffff8000000ULL), // 100
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffc000000ULL), // 101
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffe000000ULL), // 102
-    uint128_t(0xffffffffffffffffULL, 0xffffffffff000000ULL), // 103
-    uint128_t(0xffffffffffffffffULL, 0xffffffffff800000ULL), // 104
-    uint128_t(0xffffffffffffffffULL, 0xffffffffffc00000ULL), // 105
-    uint128_t(0xffffffffffffffffULL, 0xffffffffffe00000ULL), // 106
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffff00000ULL), // 107
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffff80000ULL), // 108
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffffc0000ULL), // 109
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffffe0000ULL), // 110
-    uint128_t(0xffffffffffffffffULL, 0xffffffffffff0000ULL), // 111
-    uint128_t(0xffffffffffffffffULL, 0xffffffffffff8000ULL), // 112
-    uint128_t(0xffffffffffffffffULL, 0xffffffffffffc000ULL), // 113
-    uint128_t(0xffffffffffffffffULL, 0xffffffffffffe000ULL), // 114
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffffff000ULL), // 115
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffffff800ULL), // 116
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffffffc00ULL), // 117
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffffffe00ULL), // 118
-    uint128_t(0xffffffffffffffffULL, 0xffffffffffffff00ULL), // 119
-    uint128_t(0xffffffffffffffffULL, 0xffffffffffffff80ULL), // 120
-    uint128_t(0xffffffffffffffffULL, 0xffffffffffffffc0ULL), // 121
-    uint128_t(0xffffffffffffffffULL, 0xffffffffffffffe0ULL), // 122
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffffffff0ULL), // 123
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffffffff8ULL), // 124
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffffffffcULL), // 125
-    uint128_t(0xffffffffffffffffULL, 0xfffffffffffffffeULL), // 126
-    uint128_t(0xffffffffffffffffULL, 0xffffffffffffffffULL), // 127
-};
-
-void Double_PRG(AES_KEY *key, uint128_t input, uint128_t& output1, uint128_t& output2, int& bit1, int& bit2){
+void Double_PRG(AES_KEY *key, uint128_t input, uint128_t &output1, uint128_t &output2, int &bit1, int &bit2)
+{
 	input = input.set_lsb_zero();
 
 	uint128_t stash[2];
@@ -283,11 +152,10 @@ void Double_PRG(AES_KEY *key, uint128_t input, uint128_t& output1, uint128_t& ou
 	stash_block[1] = makeBlock(stash[1].get_high(), stash[1].get_low());
 
 	AES_ecb_encrypt_blks(stash_block, 2, key);
-	int64_t *v64val = (int64_t*) &stash_block[0];
+	int64_t *v64val = (int64_t *)&stash_block[0];
 	stash[0] = uint128_t(v64val[1], v64val[0]);
-	v64val = (int64_t*) &stash_block[1];
+	v64val = (int64_t *)&stash_block[1];
 	stash[1] = uint128_t(v64val[1], v64val[0]);
-
 
 	stash[0] = stash[0] ^ input;
 	stash[1] = stash[1] ^ input;
@@ -300,19 +168,20 @@ void Double_PRG(AES_KEY *key, uint128_t input, uint128_t& output1, uint128_t& ou
 	output2 = stash[1].set_lsb_zero();
 }
 
-void GEN_Pack(AES_Generator* prg, AES_KEY *key, uint128_t alpha, int n, unsigned char** k0, unsigned char **k1, int maxlayer){
-	//int maxlayer = n - 7;
-	//int maxlayer = n;
+void GEN_Pack(AES_Generator *prg, AES_KEY *key, uint128_t alpha, int n, unsigned char **k0, unsigned char **k1)
+{
+	int maxlayer = n - 7;
+	// int maxlayer = n;
 
 	uint128_t s[maxlayer + 1][2];
-	int t[maxlayer + 1 ][2];
+	int t[maxlayer + 1][2];
 	uint128_t sCW[maxlayer];
 	int tCW[maxlayer][2];
 
-	s[0][0] = prg->random(); 
+	s[0][0] = prg->random();
 	s[0][1] = prg->random();
-    s[0][0].print_uint128("s[0][0] = ", s[0][0]);
-    s[0][1].print_uint128("s[0][1] = ", s[0][1]);
+	s[0][0].print_uint128("s[0][0] = ", s[0][0]);
+	s[0][1].print_uint128("s[0][1] = ", s[0][1]);
 	t[0][0] = s[0][0].get_lsb();
 	t[0][1] = t[0][0] ^ 1;
 	s[0][0] = s[0][0].set_lsb_zero();
@@ -320,61 +189,72 @@ void GEN_Pack(AES_Generator* prg, AES_KEY *key, uint128_t alpha, int n, unsigned
 
 	int i;
 	uint128_t s0[2], s1[2]; // 0=L,1=R
-	#define LEFT 0
-	#define RIGHT 1
+#define LEFT 0
+#define RIGHT 1
 	int t0[2], t1[2];
-	for(i = 1; i<= maxlayer; i++){
-		Double_PRG(key, s[i-1][0], s0[LEFT], s0[RIGHT], t0[LEFT], t0[RIGHT]);
-		Double_PRG(key, s[i-1][1], s1[LEFT], s1[RIGHT], t1[LEFT], t1[RIGHT]);
+	for (i = 1; i <= maxlayer; i++)
+	{
+		Double_PRG(key, s[i - 1][0], s0[LEFT], s0[RIGHT], t0[LEFT], t0[RIGHT]);
+		Double_PRG(key, s[i - 1][1], s1[LEFT], s1[RIGHT], t1[LEFT], t1[RIGHT]);
 
 		int keep, lose;
-        // int alphabit = getbit(alpha, n, i);
-        int alphabit = alpha.get_bit(n-i);
-		if(alphabit == 0){
+		// int alphabit = getbit(alpha, n, i);
+		int alphabit = alpha.get_bit(n - i);
+		if (alphabit == 0)
+		{
 			keep = LEFT;
 			lose = RIGHT;
-		}else{
+		}
+		else
+		{
 			keep = RIGHT;
 			lose = LEFT;
 		}
 
-		sCW[i-1] = s0[lose] ^ s1[lose];
+		sCW[i - 1] = s0[lose] ^ s1[lose];
 
-		tCW[i-1][LEFT] = t0[LEFT] ^ t1[LEFT] ^ alphabit ^ 1;
-		tCW[i-1][RIGHT] = t0[RIGHT] ^ t1[RIGHT] ^ alphabit;
+		tCW[i - 1][LEFT] = t0[LEFT] ^ t1[LEFT] ^ alphabit ^ 1;
+		tCW[i - 1][RIGHT] = t0[RIGHT] ^ t1[RIGHT] ^ alphabit;
 
-		if(t[i-1][0] == 1){
-			s[i][0] = s0[keep] ^ sCW[i-1];
-			t[i][0] = t0[keep] ^ tCW[i-1][keep];
-		}else{
+		if (t[i - 1][0] == 1)
+		{
+			s[i][0] = s0[keep] ^ sCW[i - 1];
+			t[i][0] = t0[keep] ^ tCW[i - 1][keep];
+		}
+		else
+		{
 			s[i][0] = s0[keep];
 			t[i][0] = t0[keep];
 		}
 
-		if(t[i-1][1] == 1){
-			s[i][1] = s1[keep] ^ sCW[i-1];
-			t[i][1] = t1[keep] ^ tCW[i-1][keep];
-		}else{
+		if (t[i - 1][1] == 1)
+		{
+			s[i][1] = s1[keep] ^ sCW[i - 1];
+			t[i][1] = t1[keep] ^ tCW[i - 1][keep];
+		}
+		else
+		{
 			s[i][1] = s1[keep];
 			t[i][1] = t1[keep];
 		}
 	}
 
-    uint128_t finalblock;
-    finalblock = select_vector_table[alpha.get_low() & 127];
-    finalblock.print_uint128("select_vector = ", finalblock);
-    s[maxlayer][0].print_uint128("s[maxlayer][0] = ", s[maxlayer][0]);
-    s[maxlayer][1].print_uint128("s[maxlayer][1] = ", s[maxlayer][1]);
+	uint128_t finalblock;
+	finalblock = select_vector_table[alpha.get_low() & 127];
+	finalblock.print_uint128("select_vector = ", finalblock);
+	s[maxlayer][0].print_uint128("s[maxlayer][0] = ", s[maxlayer][0]);
+	s[maxlayer][1].print_uint128("s[maxlayer][1] = ", s[maxlayer][1]);
 	finalblock = finalblock ^ s[maxlayer][0];
 	finalblock = finalblock ^ s[maxlayer][1];
-    finalblock.print_uint128("finalblock = ", finalblock);
+	finalblock.print_uint128("finalblock = ", finalblock);
 
 	unsigned char *buff0;
 	unsigned char *buff1;
-	buff0 = (unsigned char*) malloc(1 + 16 + 1 + 18 * maxlayer + 16);
-	buff1 = (unsigned char*) malloc(1 + 16 + 1 + 18 * maxlayer + 16);
+	buff0 = (unsigned char *)malloc(1 + 16 + 1 + 18 * maxlayer + 16);
+	buff1 = (unsigned char *)malloc(1 + 16 + 1 + 18 * maxlayer + 16);
 
-	if(buff0 == NULL || buff1 == NULL){
+	if (buff0 == NULL || buff1 == NULL)
+	{
 		printf("Memory allocation failed\n");
 		exit(1);
 	}
@@ -382,12 +262,13 @@ void GEN_Pack(AES_Generator* prg, AES_KEY *key, uint128_t alpha, int n, unsigned
 	buff0[0] = n;
 	memcpy(&buff0[1], &s[0][0], 16);
 	buff0[17] = t[0][0];
-	for(i = 1; i <= maxlayer; i++){
-		memcpy(&buff0[18 * i], &sCW[i-1], 16);
-		buff0[18 * i + 16] = tCW[i-1][0];
-		buff0[18 * i + 17] = tCW[i-1][1]; 
+	for (i = 1; i <= maxlayer; i++)
+	{
+		memcpy(&buff0[18 * i], &sCW[i - 1], 16);
+		buff0[18 * i + 16] = tCW[i - 1][0];
+		buff0[18 * i + 17] = tCW[i - 1][1];
 	}
-	memcpy(&buff0[18 * maxlayer + 18], &finalblock, 16); 
+	memcpy(&buff0[18 * maxlayer + 18], &finalblock, 16);
 
 	buff1[0] = n;
 	memcpy(&buff1[18], &buff0[18], 18 * (maxlayer));
@@ -399,7 +280,8 @@ void GEN_Pack(AES_Generator* prg, AES_KEY *key, uint128_t alpha, int n, unsigned
 	*k1 = buff1;
 }
 
-uint128_t EVAL_Pack(AES_KEY *key, unsigned char* k, uint128_t x){
+uint128_t EVAL_Pack(AES_KEY *key, unsigned char *k, uint128_t x)
+{
 	int n = k[0];
 	int maxlayer = n - 7;
 
@@ -413,31 +295,37 @@ uint128_t EVAL_Pack(AES_KEY *key, unsigned char* k, uint128_t x){
 	t[0] = k[17];
 
 	int i;
-	for(i = 1; i <= maxlayer; i++){
-		memcpy(&sCW[i-1], &k[18 * i], 16);
-		tCW[i-1][0] = k[18 * i + 16];
-		tCW[i-1][1] = k[18 * i + 17];
+	for (i = 1; i <= maxlayer; i++)
+	{
+		memcpy(&sCW[i - 1], &k[18 * i], 16);
+		tCW[i - 1][0] = k[18 * i + 16];
+		tCW[i - 1][1] = k[18 * i + 17];
 	}
 
 	memcpy(&finalblock, &k[18 * (maxlayer + 1)], 16);
 
 	uint128_t sL, sR;
 	int tL, tR;
-	for(i = 1; i <= maxlayer; i++){
-		Double_PRG(key, s[i - 1], sL, sR, tL, tR); 
+	for (i = 1; i <= maxlayer; i++)
+	{
+		Double_PRG(key, s[i - 1], sL, sR, tL, tR);
 
-		if(t[i-1] == 1){
-			sL = sL ^ sCW[i-1];
-			sR = sR ^ sCW[i-1];
-			tL = tL ^ tCW[i-1][0];
-			tR = tR ^ tCW[i-1][1];	
+		if (t[i - 1] == 1)
+		{
+			sL = sL ^ sCW[i - 1];
+			sR = sR ^ sCW[i - 1];
+			tL = tL ^ tCW[i - 1][0];
+			tR = tR ^ tCW[i - 1][1];
 		}
 
-		int xbit = x.get_bit(n-i);
-		if(xbit == 0){
+		int xbit = x.get_bit(n - i);
+		if (xbit == 0)
+		{
 			s[i] = sL;
 			t[i] = tL;
-		}else{
+		}
+		else
+		{
 			s[i] = sR;
 			t[i] = tR;
 		}
@@ -445,20 +333,73 @@ uint128_t EVAL_Pack(AES_KEY *key, unsigned char* k, uint128_t x){
 
 	uint128_t res;
 	res = s[maxlayer];
-    res = res ^ finalblock.select(t[maxlayer]);
+	res = res ^ finalblock.select(t[maxlayer]);
 	return res;
 }
 
-void fss_gen(AES_Generator* prg, AES_KEY *key, uint128_t alpha, int n, unsigned char** k0, unsigned char **k1){
+void EvalFullRecursive(AES_KEY *key, unsigned char *k, uint128_t s, uint8_t t, size_t lvl, size_t stop, std::vector<uint8_t> &res)
+{
+	if (lvl == stop + 1)
+	{
+		uint128_t finalblock;
+		memcpy(&finalblock, &k[18 * (lvl)], 16);
+		uint128_t res_local = s;
+		res_local = res_local ^ finalblock.select(t);
+		uint8_t tmp[16];
+		res_local.to_bytes(tmp);
+		res.insert(res.end(), &tmp[0], &tmp[16]);
+		return;
+	}
+
+	uint128_t sL, sR;
+	int tL, tR;
+	Double_PRG(key, s, sL, sR, tL, tR);
+
+	if (t)
+	{
+		uint128_t sCW;
+		int tCW[2];
+
+		memcpy(&sCW, &k[(lvl) * 18], 16);
+
+		//            block* sCW = (block*) key.data() + 17 + lvl*18;
+		tCW[0] = k[18 * (lvl) + 16];
+		tCW[1] = k[18 * (lvl) + 17];
+		tL ^= tCW[0];
+		tR ^= tCW[1];
+		sL ^= sCW;
+		sR ^= sCW;
+	}
+	// Log::v("-sL", sL);
+	EvalFullRecursive(key, k, sL, tL, lvl + 1, stop, res);
+	// Log::v("-sR", sR);
+	EvalFullRecursive(key, k, sR, tR, lvl + 1, stop, res);
+}
+
+std::vector<uint8_t> EvalFull(AES_KEY *key, unsigned char *k, size_t logn)
+{
+	assert(logn <= 63);
+	std::vector<uint8_t> data;
+
+	uint128_t s;
+	memcpy(&s, &k[1], 16);
+	uint32_t t = k[17];
+	size_t stop = logn >= 7 ? logn - 7 : 0; // pack 7 layers in final CW
+	EvalFullRecursive(key, k, s, t, 1, stop, data);
+	return data;
+}
+
+void fss_gen(AES_Generator *prg, AES_KEY *key, uint128_t alpha, int n, unsigned char **k0, unsigned char **k1)
+{
 	// int maxlayer = n - 7;
 	int maxlayer = n;
 
 	uint128_t s[maxlayer + 1][2];
-	int t[maxlayer + 1 ][2];
+	int t[maxlayer + 1][2];
 	uint128_t sCW[maxlayer];
 	int tCW[maxlayer][2];
 
-	s[0][0] = prg->random(); 
+	s[0][0] = prg->random();
 	s[0][1] = prg->random();
 	t[0][0] = s[0][0].get_lsb();
 	t[0][1] = t[0][0] ^ 1;
@@ -467,57 +408,68 @@ void fss_gen(AES_Generator* prg, AES_KEY *key, uint128_t alpha, int n, unsigned 
 
 	int i;
 	uint128_t s0[2], s1[2]; // 0=L,1=R
-	#define LEFT 0
-	#define RIGHT 1
+#define LEFT 0
+#define RIGHT 1
 	int t0[2], t1[2];
-	for(i = 1; i<= maxlayer; i++){
-		Double_PRG(key, s[i-1][0], s0[LEFT], s0[RIGHT], t0[LEFT], t0[RIGHT]);
-		Double_PRG(key, s[i-1][1], s1[LEFT], s1[RIGHT], t1[LEFT], t1[RIGHT]);
+	for (i = 1; i <= maxlayer; i++)
+	{
+		Double_PRG(key, s[i - 1][0], s0[LEFT], s0[RIGHT], t0[LEFT], t0[RIGHT]);
+		Double_PRG(key, s[i - 1][1], s1[LEFT], s1[RIGHT], t1[LEFT], t1[RIGHT]);
 
 		int keep, lose;
-        // int alphabit = getbit(alpha, n, i);
-        int alphabit = alpha.get_bit(n-i);
-		if(alphabit == 0){
+		// int alphabit = getbit(alpha, n, i);
+		int alphabit = alpha.get_bit(n - i);
+		if (alphabit == 0)
+		{
 			keep = LEFT;
 			lose = RIGHT;
-		}else{
+		}
+		else
+		{
 			keep = RIGHT;
 			lose = LEFT;
 		}
 
-		sCW[i-1] = s0[lose] ^ s1[lose];
+		sCW[i - 1] = s0[lose] ^ s1[lose];
 
-		tCW[i-1][LEFT] = t0[LEFT] ^ t1[LEFT] ^ alphabit ^ 1;
-		tCW[i-1][RIGHT] = t0[RIGHT] ^ t1[RIGHT] ^ alphabit;
+		tCW[i - 1][LEFT] = t0[LEFT] ^ t1[LEFT] ^ alphabit ^ 1;
+		tCW[i - 1][RIGHT] = t0[RIGHT] ^ t1[RIGHT] ^ alphabit;
 
-		if(t[i-1][0] == 1){
-			s[i][0] = s0[keep] ^ sCW[i-1];
-			t[i][0] = t0[keep] ^ tCW[i-1][keep];
-		}else{
+		if (t[i - 1][0] == 1)
+		{
+			s[i][0] = s0[keep] ^ sCW[i - 1];
+			t[i][0] = t0[keep] ^ tCW[i - 1][keep];
+		}
+		else
+		{
 			s[i][0] = s0[keep];
 			t[i][0] = t0[keep];
 		}
 
-		if(t[i-1][1] == 1){
-			s[i][1] = s1[keep] ^ sCW[i-1];
-			t[i][1] = t1[keep] ^ tCW[i-1][keep];
-		}else{
+		if (t[i - 1][1] == 1)
+		{
+			s[i][1] = s1[keep] ^ sCW[i - 1];
+			t[i][1] = t1[keep] ^ tCW[i - 1][keep];
+		}
+		else
+		{
 			s[i][1] = s1[keep];
 			t[i][1] = t1[keep];
 		}
 	}
 
-    uint128_t finalblock(0,1);
+	uint128_t finalblock(0, 1);
 	finalblock = finalblock ^ s[maxlayer][0];
 	finalblock = finalblock ^ s[maxlayer][1];
-    // finalblock.print_uint128("finalblock = ", finalblock);
+	// finalblock.print_uint128("finalblock = ", finalblock);
 
 	unsigned char *buff0;
 	unsigned char *buff1;
-	buff0 = (unsigned char*) malloc(1 + 16 + 1 + 18 * maxlayer + 16);
-	buff1 = (unsigned char*) malloc(1 + 16 + 1 + 18 * maxlayer + 16);
+	buff0 = (unsigned char *)malloc(1 + 16 + 1 + 18 * maxlayer + 16);
+	buff1 = (unsigned char *)malloc(1 + 16 + 1 + 18 * maxlayer + 16);
 
-	if(buff0 == NULL || buff1 == NULL){
+	if (buff0 == NULL || buff1 == NULL)
+	{
 		printf("Memory allocation failed\n");
 		exit(1);
 	}
@@ -525,12 +477,13 @@ void fss_gen(AES_Generator* prg, AES_KEY *key, uint128_t alpha, int n, unsigned 
 	buff0[0] = n;
 	memcpy(&buff0[1], &s[0][0], 16);
 	buff0[17] = t[0][0];
-	for(i = 1; i <= maxlayer; i++){
-		memcpy(&buff0[18 * i], &sCW[i-1], 16);
-		buff0[18 * i + 16] = tCW[i-1][0];
-		buff0[18 * i + 17] = tCW[i-1][1]; 
+	for (i = 1; i <= maxlayer; i++)
+	{
+		memcpy(&buff0[18 * i], &sCW[i - 1], 16);
+		buff0[18 * i + 16] = tCW[i - 1][0];
+		buff0[18 * i + 17] = tCW[i - 1][1];
 	}
-	memcpy(&buff0[18 * maxlayer + 18], &finalblock, 16); 
+	memcpy(&buff0[18 * maxlayer + 18], &finalblock, 16);
 
 	buff1[0] = n;
 	memcpy(&buff1[18], &buff0[18], 18 * (maxlayer));
@@ -542,7 +495,8 @@ void fss_gen(AES_Generator* prg, AES_KEY *key, uint128_t alpha, int n, unsigned 
 	*k1 = buff1;
 }
 
-uint128_t dcf_eval(AES_KEY *key, unsigned char* k, uint128_t x){
+uint128_t dcf_eval(AES_KEY *key, unsigned char *k, uint128_t x)
+{
 	int n = k[0];
 	int maxlayer = n;
 
@@ -556,218 +510,54 @@ uint128_t dcf_eval(AES_KEY *key, unsigned char* k, uint128_t x){
 	t[0] = k[17];
 
 	int i;
-	for(i = 1; i <= maxlayer; i++){
-		memcpy(&sCW[i-1], &k[18 * i], 16);
-		tCW[i-1][0] = k[18 * i + 16];
-		tCW[i-1][1] = k[18 * i + 17];
+	for (i = 1; i <= maxlayer; i++)
+	{
+		memcpy(&sCW[i - 1], &k[18 * i], 16);
+		tCW[i - 1][0] = k[18 * i + 16];
+		tCW[i - 1][1] = k[18 * i + 17];
 	}
 
 	memcpy(&finalblock, &k[18 * (maxlayer + 1)], 16);
 
 	uint128_t sL, sR;
-	uint128_t res(0,0);
+	uint128_t res(0, 0);
 	int tL, tR;
 
-    // first layer
-    Double_PRG(key, s[0], sL, sR, tL, tR); 
+	// first layer
+	Double_PRG(key, s[0], sL, sR, tL, tR);
 
 	sL = sL ^ sCW[0].select(t[0]);
 	sR = sR ^ sCW[0].select(t[0]);
-	tL = tL ^ (tCW[0][0]*t[0]);
-	tR = tR ^ (tCW[0][1]*t[0]);	
+	tL = tL ^ (tCW[0][0] * t[0]);
+	tR = tR ^ (tCW[0][1] * t[0]);
 
-	int xbit = x.get_bit(n-1);
+	int xbit = x.get_bit(n - 1);
 
-    s[1] = sR.select(xbit) ^ sL.select((1-xbit));
-    t[1] = tR * xbit + tL * (1-xbit);
+	s[1] = sR.select(xbit) ^ sL.select((1 - xbit));
+	t[1] = tR * xbit + tL * (1 - xbit);
 
-    res = res ^ uint128_t(0, xbit*t[0]);
+	res = res ^ uint128_t(0, xbit * t[0]);
 
-	for(i = 2; i <= maxlayer; i++){
-        Double_PRG(key, s[i - 1], sL, sR, tL, tR); 
+	for (i = 2; i <= maxlayer; i++)
+	{
+		Double_PRG(key, s[i - 1], sL, sR, tL, tR);
 
-		sL = sL ^ sCW[i-1].select(t[i-1]);
-		sR = sR ^ sCW[i-1].select(t[i-1]);
-		tL = tL ^ (tCW[i-1][0]*t[i-1]);
-		tR = tR ^ (tCW[i-1][1]*t[i-1]);	
+		sL = sL ^ sCW[i - 1].select(t[i - 1]);
+		sR = sR ^ sCW[i - 1].select(t[i - 1]);
+		tL = tL ^ (tCW[i - 1][0] * t[i - 1]);
+		tR = tR ^ (tCW[i - 1][1] * t[i - 1]);
 
-		int xbit = x.get_bit(n-i);
-		s[i] = sR.select(xbit) ^ sL.select((1-xbit));
-		t[i] = tR * xbit + tL * (1-xbit);
+		int xbit = x.get_bit(n - i);
+		s[i] = sR.select(xbit) ^ sL.select((1 - xbit));
+		t[i] = tR * xbit + tL * (1 - xbit);
 
-        int xbit_last = x.get_bit(n-i+1);
-        int changed = (xbit_last * (1 - xbit)) | ((1 - xbit_last) * xbit);
-        res = res ^ uint128_t(0, changed*t[i-1]);
+		int xbit_last = x.get_bit(n - i + 1);
+		int changed = (xbit_last * (1 - xbit)) | ((1 - xbit_last) * xbit);
+		res = res ^ uint128_t(0, changed * t[i - 1]);
 	}
-	xbit = 1-x.get_bit(0);
-    res = res ^ uint128_t(0, t[maxlayer]*xbit);
+	xbit = 1 - x.get_bit(0);
+	res = res ^ uint128_t(0, t[maxlayer] * xbit);
 	return res;
 }
-
-void Dcf_Pack(AES_Generator* prg, AES_KEY *key, uint128_t alpha, int n, unsigned char** k0, unsigned char **k1, int maxlayer){
-
-	uint128_t s[maxlayer + 1][2];
-	int t[maxlayer + 1 ][2];
-	uint128_t sCW[maxlayer];
-	int tCW[maxlayer][2];
-
-	s[0][0] = prg->random(); 
-	s[0][1] = prg->random();
-    // s[0][0].print_uint128("s[0][0] = ", s[0][0]);
-    // s[0][1].print_uint128("s[0][1] = ", s[0][1]);
-	t[0][0] = s[0][0].get_lsb();
-	t[0][1] = t[0][0] ^ 1;
-	s[0][0] = s[0][0].set_lsb_zero();
-	s[0][1] = s[0][1].set_lsb_zero();
-
-	int i;
-	uint128_t s0[2], s1[2]; // 0=L,1=R
-	#define LEFT 0
-	#define RIGHT 1
-	int t0[2], t1[2];
-	for(i = 1; i<= maxlayer; i++){
-		Double_PRG(key, s[i-1][0], s0[LEFT], s0[RIGHT], t0[LEFT], t0[RIGHT]);
-		Double_PRG(key, s[i-1][1], s1[LEFT], s1[RIGHT], t1[LEFT], t1[RIGHT]);
-
-		int keep, lose;
-        // int alphabit = getbit(alpha, n, i);
-        int alphabit = alpha.get_bit(n-i);
-		if(alphabit == 0){
-			keep = LEFT;
-			lose = RIGHT;
-		}else{
-			keep = RIGHT;
-			lose = LEFT;
-		}
-
-		sCW[i-1] = s0[lose] ^ s1[lose];
-
-		tCW[i-1][LEFT] = t0[LEFT] ^ t1[LEFT] ^ alphabit ^ 1;
-		tCW[i-1][RIGHT] = t0[RIGHT] ^ t1[RIGHT] ^ alphabit;
-
-		if(t[i-1][0] == 1){
-			s[i][0] = s0[keep] ^ sCW[i-1];
-			t[i][0] = t0[keep] ^ tCW[i-1][keep];
-		}else{
-			s[i][0] = s0[keep];
-			t[i][0] = t0[keep];
-		}
-
-		if(t[i-1][1] == 1){
-			s[i][1] = s1[keep] ^ sCW[i-1];
-			t[i][1] = t1[keep] ^ tCW[i-1][keep];
-		}else{
-			s[i][1] = s1[keep];
-			t[i][1] = t1[keep];
-		}
-	}
-
-    uint128_t finalblock;
-	uint32_t alpha_m = alpha.get_low() % ((uint64_t)1 << (n-maxlayer));
-    finalblock = prefix_ones_table[alpha_m];
-	// printf("alpha = %ld\n", (uint64_t)alpha.get_low() << (maxlayer) >> (maxlayer));
-	// finalblock.print_uint128("finalblock = ", finalblock);
-    // finalblock.print_uint128("select_vector = ", finalblock);
-    // s[maxlayer][0].print_uint128("s[maxlayer][0] = ", s[maxlayer][0]);
-    // s[maxlayer][1].print_uint128("s[maxlayer][1] = ", s[maxlayer][1]);
-	finalblock = finalblock ^ s[maxlayer][0];
-	finalblock = finalblock ^ s[maxlayer][1];
-    // finalblock.print_uint128("finalblock = ", finalblock);
-
-	unsigned char *buff0;
-	unsigned char *buff1;
-	buff0 = (unsigned char*) malloc(1 + 16 + 1 + 18 * maxlayer + 16);
-	buff1 = (unsigned char*) malloc(1 + 16 + 1 + 18 * maxlayer + 16);
-
-	if(buff0 == NULL || buff1 == NULL){
-		printf("Memory allocation failed\n");
-		exit(1);
-	}
-
-	buff0[0] = n;
-	memcpy(&buff0[1], &s[0][0], 16);
-	buff0[17] = t[0][0];
-	for(i = 1; i <= maxlayer; i++){
-		memcpy(&buff0[18 * i], &sCW[i-1], 16);
-		buff0[18 * i + 16] = tCW[i-1][0];
-		buff0[18 * i + 17] = tCW[i-1][1]; 
-	}
-	memcpy(&buff0[18 * maxlayer + 18], &finalblock, 16); 
-
-	buff1[0] = n;
-	memcpy(&buff1[18], &buff0[18], 18 * (maxlayer));
-	memcpy(&buff1[1], &s[0][1], 16);
-	buff1[17] = t[0][1];
-	memcpy(&buff1[18 * maxlayer + 18], &finalblock, 16);
-
-	*k0 = buff0;
-	*k1 = buff1;
-}
-
-bool Dcf_Pack_Eval(AES_KEY *key, unsigned char* k, uint128_t x, int maxlayer){
-	int n = k[0];
-
-	uint128_t s[maxlayer + 1];
-	int t[maxlayer + 1];
-	uint128_t sCW[maxlayer];
-	int tCW[maxlayer][2];
-	uint128_t finalblock;
-
-	memcpy(&s[0], &k[1], 16);
-	t[0] = k[17];
-
-	int i;
-	for(i = 1; i <= maxlayer; i++){
-		memcpy(&sCW[i-1], &k[18 * i], 16);
-		tCW[i-1][0] = k[18 * i + 16];
-		tCW[i-1][1] = k[18 * i + 17];
-	}
-
-	memcpy(&finalblock, &k[18 * (maxlayer + 1)], 16);
-
-	uint128_t sL, sR;
-	int tL, tR;
-	int res = 0;
-	for(i = 1; i <= maxlayer; i++){
-		Double_PRG(key, s[i - 1], sL, sR, tL, tR); 
-
-		if(t[i-1] == 1){
-			sL = sL ^ sCW[i-1];
-			sR = sR ^ sCW[i-1];
-			tL = tL ^ tCW[i-1][0];
-			tR = tR ^ tCW[i-1][1];	
-		}
-
-		int xbit = x.get_bit(n-i);
-		if(xbit == 0){
-			s[i] = sL;
-			t[i] = tL;
-			res = res ^ tR;
-		}else{
-			s[i] = sR;
-			t[i] = tR;
-		}
-	}
-
-	uint128_t eval_res;
-	// printf("x = %lx\n", x.get_low());
-	// uint32_t x_m = ((uint64_t)x.get_low() << (maxlayer)) >> (maxlayer);
-	uint32_t x_m = x.get_low() % ((uint64_t)1 << (n-maxlayer));
-	// printf("x_m = %lx\n", x_m);
-	eval_res = s[maxlayer];
-    eval_res = eval_res ^ finalblock.select(t[maxlayer]);
-	// eval_res.print_uint128("eval_res = ", eval_res);
-
-	uint32_t tmp = 127 - x_m;
-	// printf("tmp = %d\n", tmp);
-	eval_res >>= tmp;
-	// eval_res.print_uint128("eval_res = ", eval_res);
-	tmp = eval_res.get_lsb();
-	// printf("tmp = %d\n", tmp);
-	res = res ^ tmp;
-	// printf("res = %d\n", res);
-	return res;
-}
-
 
 #endif // FSS_KEYGEN_H
