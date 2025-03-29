@@ -65,3 +65,6 @@ If you want to test the code over two machine, into the build dir and type
 ```
 
 You can modify the IP in the **MPABY_util/util_cmpc_config.h** to communicate with multiple machines
+
+## To do
+Add the two-party compution for LLM
