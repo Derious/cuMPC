@@ -4,3 +4,6 @@
 [submodule "dependence/emp-ot"]
 	path = dependence/emp-ot
 	url = https://github.com/emp-toolkit/emp-ot.git
+[submodule "dependence/data_system"]
+	path = dependence/data_system
+	url = https://github.com/jmerak/data_system
